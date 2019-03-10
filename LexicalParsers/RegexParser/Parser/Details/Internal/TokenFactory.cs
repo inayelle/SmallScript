@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Extensions;
 using SmallScript.LexicalParsers.RegexParser.Parser.Interfaces;
@@ -8,6 +10,7 @@ using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
+using SmallScript.Shared.Extensions;
 
 [assembly: InternalsVisibleTo("SmallScript.LexicalParsers.RegexParser.Tests")]
 
@@ -15,13 +18,18 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 {
 	internal class TokenFactory : ITokenFactory
 	{
-		private readonly IGrammar        _grammar;
-		private readonly IIdentitySource _identitySource;
+		private readonly IGrammar                           _grammar;
+		private readonly IIdentitySource                    _identitySource;
+		private readonly IDictionary<string, ConstantToken> _constantsCache;
+		private readonly IDictionary<string, VariableToken> _variablesCache;
 
 		public TokenFactory(IGrammar grammar, IIdentitySource identitySource)
 		{
 			_grammar        = Require.NotNull(grammar, nameof(grammar));
 			_identitySource = Require.NotNull(identitySource, nameof(identitySource));
+
+			_constantsCache = new Dictionary<string, ConstantToken>();
+			_variablesCache = new Dictionary<string, VariableToken>();
 		}
 
 		public IToken Create(string value, FilePosition position)
@@ -54,17 +62,25 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		private bool IsVariable(string value, FilePosition position, out VariableToken variableToken)
 		{
-			if (!value.StartsWith('$') && value.Length > 1)
+			if (!Regex.IsMatch(value, @"^\$[A-z_]+$"))
 			{
 				variableToken = null;
 				return false;
 			}
 
-			var name         = value.Substring(1);
-			var grammarEntry = _grammar.GetVariableEntry();
-			var id           = _identitySource.NextVariableId;
+			if (_variablesCache.ContainsKey(value))
+			{
+				variableToken = _variablesCache[value].CloneWithPosition(position);
+			}
+			else
+			{
+				var name         = value.Substring(1);
+				var grammarEntry = _grammar.GetVariableEntry();
+				var id           = _identitySource.NextVariableId;
 
-			variableToken = new VariableToken(id, name, position, grammarEntry);
+				variableToken = _variablesCache[value] = new VariableToken(id, name, position, grammarEntry);
+			}
+
 			return true;
 		}
 
@@ -76,37 +92,51 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 				return false;
 			}
 
-			var grammarEntry = _grammar.GetConstantEntry();
-			var id           = _identitySource.NextConstantId;
+			if (_constantsCache.ContainsKey(value))
+			{
+				constantToken = _constantsCache[value].CloneWithPosition(position);
+			}
+			else
+			{
+				var grammarEntry = _grammar.GetConstantEntry();
+				var id           = _identitySource.NextConstantId;
 
-			constantToken = new ConstantToken(id, value, position, grammarEntry);
+				_constantsCache[value] = new ConstantToken(id, value, position, grammarEntry);
+			}
+
+			constantToken = _constantsCache[value];
 			return true;
 		}
 
 		private bool IsKeyword(string value, FilePosition position, out KeywordToken keywordToken)
 		{
 			var grammarEntry = _grammar.GetEntryByValue(value);
-			
+
 			if (grammarEntry == null || !value.All(Char.IsLetter))
 			{
 				keywordToken = null;
 				return false;
 			}
-		
+
 			keywordToken = new KeywordToken(value, position, grammarEntry);
 			return true;
 		}
-		
+
 		private bool IsDelimiter(string value, FilePosition position, out DelimiterToken delimiterToken)
 		{
-			var grammarEntry = _grammar.GetEntryByValue(value);
+			if (value.InvariantEquals("\n"))
+			{
+				value = "<EOL>";
+			}
 			
+			var grammarEntry = _grammar.GetEntryByValue(value);
+
 			if (grammarEntry == null)
 			{
 				delimiterToken = null;
 				return false;
 			}
-		
+
 			delimiterToken = new DelimiterToken(value, position, grammarEntry);
 			return true;
 		}

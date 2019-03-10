@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SmallScript.Grammars.BackusNaur.Grammar;
 using SmallScript.Grammars.BackusNaur.Grammar.Details;
+using SmallScript.Grammars.BackusNaur.Parser.Details.Internals;
 using SmallScript.Grammars.BackusNaur.Parser.Exceptions;
 using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
 using SmallScript.Grammars.Shared.Details;

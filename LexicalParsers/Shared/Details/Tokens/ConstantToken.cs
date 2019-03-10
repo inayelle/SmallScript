@@ -25,5 +25,10 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 		{
 			return HashCode.Combine(GrammarEntry, Id);
 		}
+		
+		public static ConstantToken CloneWithPosition(ConstantToken other, FilePosition position)
+		{
+			return new ConstantToken(other.Id, other.Value, position, other.GrammarEntry);
+		}
 	}
 }

@@ -37,6 +37,17 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			Assert.IsType<VariableToken>(token);
 			Assert.Equal("var", token.Value);
 		}
+		
+		[Fact]
+		public void TestCreateEolDelimiter()
+		{
+			var value = "\n";
+
+			var token = _factory.Create(value, new FilePosition(1, 1));
+
+			Assert.IsType<DelimiterToken>(token);
+			Assert.Equal("<EOL>", token.Value);
+		}
 
 		private static IGrammar GetGrammar()
 		{

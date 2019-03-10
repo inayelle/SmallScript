@@ -1,8 +1,5 @@
-using System;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Base;
-using SmallScript.Shared.Details;
-using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
 
 namespace SmallScript.LexicalParsers.Shared.Details.Tokens

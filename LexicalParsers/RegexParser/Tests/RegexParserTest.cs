@@ -46,8 +46,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			Assert.True(result.Ok);
 			Assert.Null(result.Error);
 			Assert.NotEmpty(result.Tokens);
-			Assert.NotEmpty(result.Constants);
-			Assert.NotEmpty(result.Variables);
+			Assert.Equal(3, result.Constants.Count);
+			Assert.Equal(2, result.Variables.Count);
 		}
 
 		[Fact]
