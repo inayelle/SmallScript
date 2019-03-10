@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>SmallScript.SyntaxParsers.Shared</AssemblyName>
+    <RootNamespace>SmallScript.SyntaxParsers.Shared</RootNamespace>
+  </PropertyGroup>
+
+</Project>
