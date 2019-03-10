@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.Grammars.BackusNaur.Grammar
+namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 {
 	public class BackusNaurGrammar : IGrammar
 	{

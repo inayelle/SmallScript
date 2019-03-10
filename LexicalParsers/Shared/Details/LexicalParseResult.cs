@@ -9,9 +9,9 @@ namespace SmallScript.LexicalParsers.Shared.Details
 {
 	public class LexicalParseResult
 	{
-		public IEnumerable<IToken>        Tokens    { get; }
-		public IEnumerable<ConstantToken> Constants { get; }
-		public IEnumerable<VariableToken> Variables { get; }
+		public IReadOnlyCollection<IToken>        Tokens    { get; }
+		public IReadOnlyCollection<ConstantToken> Constants { get; }
+		public IReadOnlyCollection<VariableToken> Variables { get; }
 
 		public bool       Ok    { get; }
 		public ParseError Error { get; }
@@ -21,11 +21,25 @@ namespace SmallScript.LexicalParsers.Shared.Details
 			var enumerable = tokens as IToken[] ?? tokens.ToArray();
 
 			Tokens    = enumerable;
-			Constants = enumerable.OfType<ConstantToken>().Distinct();
-			Variables = enumerable.OfType<VariableToken>().Distinct();
+			Constants = enumerable.OfType<ConstantToken>().Distinct().ToArray();
+			Variables = enumerable.OfType<VariableToken>().Distinct().ToArray();
 
-			Ok    = true;
-			Error = null;
+			var invalidTokens = enumerable.OfType<InvalidToken>().ToList();
+			if (invalidTokens.Count > 0)
+			{
+				var firstInvalidToken = invalidTokens.First();
+				
+				var message = $"Unexpected token {firstInvalidToken}";
+				var position = firstInvalidToken.Position;
+				
+				Ok = false;
+				Error = new ParseError(message, position);
+			}
+			else
+			{
+				Ok    = true;
+				Error = null;
+			}
 		}
 
 		public LexicalParseResult(ParseError error)

@@ -5,12 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using SmallScript.Grammars.BackusNaur.Grammar;
+using SmallScript.Grammars.BackusNaur.Grammar.Details;
 using SmallScript.Grammars.BackusNaur.Parser.Exceptions;
 using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.Shared;
+using SmallScript.Shared.Details;
+using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
 
 namespace SmallScript.Grammars.BackusNaur.Parser.Details
@@ -22,7 +25,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 		public IEntryFactory EntryFactory
 		{
 			get => _factory;
-			set => _factory = value ?? throw new ArgumentNullException(nameof(value));
+			set => _factory = Require.NotNull(value);
 		}
 
 		public BackusNaurGrammarParser() : this(new CachingEntryFactory())
@@ -31,11 +34,13 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		public BackusNaurGrammarParser(IEntryFactory entryFactory)
 		{
-			EntryFactory = entryFactory ?? throw new ArgumentNullException(nameof(entryFactory));
+			EntryFactory = entryFactory;
 		}
 
 		public BackusNaurGrammar Parse(Stream stream)
 		{
+			Require.NotNull(stream, nameof(stream));
+
 			using (var reader = new StreamReader(stream, Encoding.UTF8))
 			{
 				var input = reader.ReadToEnd();
@@ -45,6 +50,8 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		public BackusNaurGrammar Parse(string input)
 		{
+			Require.NotNull(input, nameof(input));
+
 			var lines      = SplitLines(input);
 			var navigation = new FileNavigation();
 			var rules      = new HashSet<IRule>();
@@ -73,7 +80,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 			return new BackusNaurGrammar(rules);
 		}
 
-		private static IList<string> SplitLines(string input)
+		private static IEnumerable<string> SplitLines(string input)
 		{
 			return Regex.Split(input, "\n").Select(l => l.Trim()).ToList();
 		}
@@ -101,7 +108,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 		private ISet<IAlternative> ParseAlternatives(string alternatives)
 		{
 			var parts = alternatives.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim());
-
+			
 			return parts.Select(ParseAlternative).ToHashSet();
 		}
 

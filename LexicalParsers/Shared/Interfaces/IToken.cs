@@ -6,7 +6,6 @@ namespace SmallScript.LexicalParsers.Shared.Interfaces
 {
 	public interface IToken : IEquatable<IToken>
 	{
-		string Code  { get; }
 		string Value { get; }
 
 		FilePosition  Position     { get; }

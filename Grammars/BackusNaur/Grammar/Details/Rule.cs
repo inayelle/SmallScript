@@ -4,7 +4,7 @@ using System.Linq;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.Grammars.BackusNaur.Grammar
+namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 {
 	public class Rule : IRule
 	{

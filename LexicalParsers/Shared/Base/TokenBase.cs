@@ -1,6 +1,8 @@
 using System;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Interfaces;
+using SmallScript.Shared.Details;
+using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
 using SmallScript.Shared.Extensions;
 
@@ -8,17 +10,15 @@ namespace SmallScript.LexicalParsers.Shared.Base
 {
 	public abstract class TokenBase : IToken
 	{
-		public string        Code         { get; }
 		public string        Value        { get; }
 		public FilePosition  Position     { get; }
 		public IGrammarEntry GrammarEntry { get; }
 
-		protected TokenBase(string code, string value, FilePosition position, IGrammarEntry grammarEntry)
+		protected TokenBase(string value, FilePosition position, IGrammarEntry grammarEntry)
 		{
-			Code         = code;
-			Value        = value;
-			Position     = position;
-			GrammarEntry = grammarEntry;
+			Value        = Require.NotNull(value, nameof(value));
+			GrammarEntry = Require.NotNull(grammarEntry, nameof(grammarEntry));
+			Position     = Require.NotNull(position, nameof(position));
 		}
 
 		public virtual bool Equals(IToken other)
@@ -34,18 +34,17 @@ namespace SmallScript.LexicalParsers.Shared.Base
 			}
 
 			return other.GetType() == GetType() &&
-			       other.Value.InvariantEquals(Value) &&
-			       other.Code.InvariantEquals(Code);
+			       other.Value.InvariantEquals(Value);
 		}
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Code, Value);
+			return HashCode.Combine(GrammarEntry, Value);
 		}
 
 		public override string ToString()
 		{
-			return $"{Code} [{Value}] {Position}";
+			return $"{Value} : {Position}";
 		}
 	}
 }

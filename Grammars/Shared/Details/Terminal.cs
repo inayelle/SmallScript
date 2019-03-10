@@ -1,16 +1,17 @@
-using System;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.Shared.Details;
+using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Extensions;
 
 namespace SmallScript.Grammars.Shared.Details
 {
 	public class Terminal : IGrammarEntry
 	{
-		public string Value { get; }
+		public string       Value { get; }
 
 		public Terminal(string value)
 		{
-			Value = value ?? throw new ArgumentNullException(nameof(value));
+			Value = Require.NotNull(value, nameof(value));
 		}
 
 		public bool Equals(IGrammarEntry other)

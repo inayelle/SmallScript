@@ -1,22 +1,20 @@
 using System;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Base;
+using SmallScript.Shared.Details;
+using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
 
 namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class VariableToken : TokenBase
 	{
-		private const string TokenCode = "T_VARIABLE";
+		public int Id { get; }
 
-		public int    Id   { get; }
-		public string Name { get; }
-
-		public VariableToken(int id, string name, string value, FilePosition position, IGrammarEntry grammarEntry)
-				: base(TokenCode, value, position, grammarEntry)
+		public VariableToken(int id, string value, FilePosition position, IGrammarEntry grammarEntry)
+				: base(value, position, grammarEntry)
 		{
-			Id   = id;
-			Name = name ?? throw new ArgumentNullException(nameof(name));
+			Id = id;
 		}
 	}
 }

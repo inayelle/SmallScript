@@ -8,12 +8,10 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class ConstantToken : TokenBase
 	{
-		private const string TokenCode = "T_CONSTANT";
-
 		public int Id { get; }
 
 		public ConstantToken(int id, string value, FilePosition position, IGrammarEntry grammarEntry) :
-				base(TokenCode, value, position, grammarEntry)
+				base(value, position, grammarEntry)
 		{
 			Id = id;
 		}
@@ -25,7 +23,7 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(TokenCode, Id);
+			return HashCode.Combine(GrammarEntry, Id);
 		}
 	}
 }

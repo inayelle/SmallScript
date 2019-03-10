@@ -1,6 +1,6 @@
 namespace SmallScript.Shared.Details.Navigation
 {
-	public struct FilePosition
+	public class FilePosition
 	{
 		public int Line   { get; }
 		public int Column { get; }
