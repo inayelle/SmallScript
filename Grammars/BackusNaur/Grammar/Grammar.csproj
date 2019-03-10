@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>SmallScript.Grammars.Shared</AssemblyName>
-    <RootNamespace>SmallScript.Grammars.Shared</RootNamespace>
+    <AssemblyName>SmallScript.Grammars.BackusNaur.Grammar</AssemblyName>
+    <RootNamespace>SmallScript.Grammars.BackusNaur.Grammar</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

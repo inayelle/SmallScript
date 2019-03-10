@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>SmallScript.Grammars.Shared</AssemblyName>
-    <RootNamespace>SmallScript.Grammars.Shared</RootNamespace>
+    <AssemblyName>SmallScript.Grammars.BackusNaur.Parser</AssemblyName>
+    <RootNamespace>SmallScript.Grammars.BackusNaur.Parser</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Grammar\Grammar.csproj" />
   </ItemGroup>
 
 </Project>
