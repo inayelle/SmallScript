@@ -2,3 +2,4 @@
 **/obj/
 .idea/
 **/*.DotSettings.user
+**/*.log
