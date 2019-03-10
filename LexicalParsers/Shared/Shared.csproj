@@ -6,4 +6,8 @@
     <RootNamespace>SmallScript.LexicalParsers.Shared</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions" />
+  </ItemGroup>
+
 </Project>

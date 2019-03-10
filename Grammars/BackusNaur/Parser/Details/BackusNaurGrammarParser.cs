@@ -11,6 +11,7 @@ using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.Shared;
+using SmallScript.Shared.Details.Navigation;
 
 namespace SmallScript.Grammars.BackusNaur.Parser.Details
 {
@@ -44,10 +45,10 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		public BackusNaurGrammar Parse(string input)
 		{
-			var lines    = SplitLines(input);
-			var position = new Position();
-			var rules    = new HashSet<IRule>();
-	
+			var lines      = SplitLines(input);
+			var navigation = new FileNavigation();
+			var rules      = new HashSet<IRule>();
+
 			try
 			{
 				foreach (var entry in lines)
@@ -57,7 +58,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 						rules.Add(ParseRule(entry));
 					}
 
-					position.MoveNextLine();
+					navigation.MoveLine();
 				}
 			}
 			catch (GrammarParseException)
@@ -66,7 +67,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 			}
 			catch (Exception exception)
 			{
-				throw new GrammarParseException(position, exception);
+				throw new GrammarParseException(navigation.CurrentPosition, exception);
 			}
 
 			return new BackusNaurGrammar(rules);

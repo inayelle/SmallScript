@@ -12,7 +12,7 @@ namespace SmallScript.Grammars.BackusNaur.Grammar
 
 		public BackusNaurGrammar(ISet<IRule> rules)
 		{
-			Rules   = rules ?? throw new ArgumentNullException(nameof(rules));
+			Rules = rules ?? throw new ArgumentNullException(nameof(rules));
 			Entries = rules.SelectMany(r => r.Alternatives
 			                                 .SelectMany(a => a.Entries)
 			                                 .Append(r.Root))

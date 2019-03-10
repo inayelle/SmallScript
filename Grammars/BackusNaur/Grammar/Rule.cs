@@ -16,7 +16,7 @@ namespace SmallScript.Grammars.BackusNaur.Grammar
 			Root         = root ?? throw new ArgumentNullException(nameof(root));
 			Alternatives = alternatives ?? throw new ArgumentNullException(nameof(alternatives));
 		}
-		
+
 		public bool Equals(IRule other)
 		{
 			return Root.Equals(other.Root) && Alternatives.SequenceEqual(other.Alternatives);
