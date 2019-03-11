@@ -4,15 +4,15 @@ using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.Grammars.BackusNaur.Parser.Details.Internals
+namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 {
-	internal class CachingEntryFactory : IEntryFactory
+	public class PrecedenceEntryFactory : IEntryFactory
 	{
 		private const string NonTerminalRegex = @"^<[A-z0-9\-_]+>$";
 
 		private readonly IDictionary<string, IGrammarEntry> _cache;
 
-		public CachingEntryFactory()
+		public PrecedenceEntryFactory()
 		{
 			_cache = new Dictionary<string, IGrammarEntry>();
 		}
@@ -34,7 +34,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details.Internals
 
 		private static NonTerminal CreateNonTerminal(string value)
 		{
-			return new NonTerminal(value);
+			return new DetailedNonTerminal(value);
 		}
 
 		private static Terminal CreateTerminal(string value)

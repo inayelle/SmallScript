@@ -6,4 +6,14 @@
     <RootNamespace>SmallScript.SyntaxParsers.Shared</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions" />
+    <Folder Include="Extensions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LexicalParsers\Shared\Shared.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.csproj" />
+  </ItemGroup>
+
 </Project>
