@@ -1,11 +1,11 @@
-@decl
+decl
 {	declare $first as int of 322
 	declare $last as int of 228 
 }
-@impl
-{	read $first, $last.
+impl
+{	stdin >> $first >> $last.
 
 	for $first by 1 to $last do {
-		write $first.
+		stdout << $first.
 	} rof
 }
