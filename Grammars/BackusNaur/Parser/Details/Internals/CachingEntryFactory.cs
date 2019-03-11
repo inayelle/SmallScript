@@ -4,12 +4,11 @@ using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.Grammars.BackusNaur.Parser.Details
+namespace SmallScript.Grammars.BackusNaur.Parser.Details.Internals
 {
-	public class CachingEntryFactory : IEntryFactory
+	internal class CachingEntryFactory : IEntryFactory
 	{
 		private const string NonTerminalRegex = @"^<[A-z0-9\-_]+>$";
-//		private const string TerminalRegex    = @"^.+$";
 
 		private readonly IDictionary<string, IGrammarEntry> _cache;
 
@@ -20,25 +19,26 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		public IGrammarEntry CreateEntry(string value)
 		{
-			if (_cache.ContainsKey(value))
-			{
-				return _cache[value];
-			}
+			if (_cache.ContainsKey(value)) return _cache[value];
 
 			IGrammarEntry instance = null;
 
 			if (Regex.IsMatch(value, NonTerminalRegex))
-			{
-				instance = new NonTerminal(value);
-			}
+				instance = CreateNonTerminal(value);
 			else
-			{
-				instance = new Terminal(value);
-			}
+				instance = CreateTerminal(value);
 
-			_cache[value] = instance;
+			return _cache[value] = instance;
+		}
 
-			return instance;
+		private static NonTerminal CreateNonTerminal(string value)
+		{
+			return new NonTerminal(value);
+		}
+
+		private static Terminal CreateTerminal(string value)
+		{
+			return new Terminal(value);
 		}
 	}
 }

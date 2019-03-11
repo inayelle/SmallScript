@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.Grammars.BackusNaur.Grammar
+namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 {
 	public class Alternative : IAlternative
 	{
-		public IEnumerable<IGrammarEntry> Entries { get; }
-
 		public Alternative(IEnumerable<IGrammarEntry> entries)
 		{
 			Entries = entries ?? throw new ArgumentNullException(nameof(entries));
 		}
 
+		public IEnumerable<IGrammarEntry> Entries { get; }
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
+			if (ReferenceEquals(obj, this))
+			{
+				return true;
+			}
+
+			return Equals(obj as IAlternative);
+		}
+		
 		public bool Equals(IAlternative other)
 		{
 			return Entries.SequenceEqual(other.Entries);
@@ -26,7 +41,7 @@ namespace SmallScript.Grammars.BackusNaur.Grammar
 
 		public override string ToString()
 		{
-			return String.Join(' ', Entries);
+			return string.Join(' ', Entries);
 		}
 	}
 }

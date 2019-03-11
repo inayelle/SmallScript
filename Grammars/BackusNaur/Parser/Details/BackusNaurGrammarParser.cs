@@ -4,13 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using SmallScript.Grammars.BackusNaur.Grammar;
+using SmallScript.Grammars.BackusNaur.Grammar.Details;
+using SmallScript.Grammars.BackusNaur.Parser.Details.Internals;
 using SmallScript.Grammars.BackusNaur.Parser.Exceptions;
 using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.Shared;
+using SmallScript.Shared.Details.Auxiliary;
+using SmallScript.Shared.Details.Navigation;
 
 namespace SmallScript.Grammars.BackusNaur.Parser.Details
 {
@@ -18,23 +20,25 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 	{
 		private IEntryFactory _factory;
 
-		public IEntryFactory EntryFactory
-		{
-			get => _factory;
-			set => _factory = value ?? throw new ArgumentNullException(nameof(value));
-		}
-
 		public BackusNaurGrammarParser() : this(new CachingEntryFactory())
 		{
 		}
 
 		public BackusNaurGrammarParser(IEntryFactory entryFactory)
 		{
-			EntryFactory = entryFactory ?? throw new ArgumentNullException(nameof(entryFactory));
+			EntryFactory = entryFactory;
+		}
+
+		public IEntryFactory EntryFactory
+		{
+			get => _factory;
+			set => _factory = Require.NotNull(value);
 		}
 
 		public BackusNaurGrammar Parse(Stream stream)
 		{
+			Require.NotNull(stream, nameof(stream));
+
 			using (var reader = new StreamReader(stream, Encoding.UTF8))
 			{
 				var input = reader.ReadToEnd();
@@ -44,20 +48,19 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		public BackusNaurGrammar Parse(string input)
 		{
-			var lines    = SplitLines(input);
-			var position = new Position();
-			var rules    = new HashSet<IRule>();
-	
+			Require.NotNull(input, nameof(input));
+
+			var lines      = SplitLines(input);
+			var navigation = new FileNavigation();
+			var rules      = new HashSet<IRule>();
+
 			try
 			{
 				foreach (var entry in lines)
 				{
-					if (!IsCommentedOrEmptyLine(entry))
-					{
-						rules.Add(ParseRule(entry));
-					}
+					if (!IsCommentedOrEmptyLine(entry)) rules.Add(ParseRule(entry));
 
-					position.MoveNextLine();
+					navigation.MoveLine();
 				}
 			}
 			catch (GrammarParseException)
@@ -66,13 +69,13 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 			}
 			catch (Exception exception)
 			{
-				throw new GrammarParseException(position, exception);
+				throw new GrammarParseException(navigation.CurrentPosition, exception);
 			}
 
 			return new BackusNaurGrammar(rules);
 		}
 
-		private static IList<string> SplitLines(string input)
+		private static IEnumerable<string> SplitLines(string input)
 		{
 			return Regex.Split(input, "\n").Select(l => l.Trim()).ToList();
 		}
@@ -81,18 +84,13 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 		{
 			var parts = rule.Split("::=", StringSplitOptions.RemoveEmptyEntries);
 
-			if (parts.Length != 2)
-			{
-				throw new InvalidGrammarSyntaxException("Delimiter wrong usage");
-			}
+			if (parts.Length != 2) throw new InvalidGrammarSyntaxException("Delimiter wrong usage");
 
 			var root         = _factory.CreateEntry(parts[0].Trim()) as NonTerminal;
 			var alternatives = ParseAlternatives(parts[1].Trim());
 
 			if (root == null)
-			{
 				throw new InvalidGrammarSyntaxException("Rule's root element must be declared as non-terminal");
-			}
 
 			return new Rule(root, alternatives);
 		}
@@ -115,7 +113,7 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		private static bool IsCommentedOrEmptyLine(string value)
 		{
-			return String.IsNullOrWhiteSpace(value) || value.StartsWith("#");
+			return string.IsNullOrWhiteSpace(value) || value.StartsWith("#");
 		}
 	}
 }

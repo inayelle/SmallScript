@@ -1,5 +1,4 @@
-#		NTERM		::=			VALUE											
-<SYNTAX>			::=	@decl <EOL> { <DECL_LIST_ALIAS> } <EOL> @impl <EOL> { <IMPL_LIST_ALIAS> }											
+<SYNTAX>			::=	decl <EOL> { <DECL_LIST_ALIAS> } <EOL> impl <EOL> { <IMPL_LIST_ALIAS> }											
 <EOL>				::=	\n | \r\n											
 <DECL_LIST>			::=	<DECL_LIST> <DECL> | <DECL>									
 <DECL>				::=	declare <VAR> as int of <CONST> <EOL>							
@@ -9,7 +8,8 @@
 <SIGN_1>			::=	* | /											
 <MATH_0>			::=	<MATH_0_ALIAS_2> <SIGN_0> <MATH_1_ALIAS> | <MATH_1_ALIAS_2>											
 <MATH_1>			::=	<MATH_1> <SIGN_1> <MATH_2_ALIAS> | <MATH_2_ALIAS_2>											
-<MATH_2>			::=	<MATH_2> ** <MATH_0_ALIAS> | ( <MATH_0_ALIAS> ) | <VAR> | <CONST> | <SIGN_0> <MATH_0_ALIAS>									
+<MATH_2>			::=	<MATH_2> ** <MATH_0_ALIAS> | ( <MATH_0_ALIAS> ) | <VAR> | <CONST> | <SIGN_0> <MATH_0_ALIAS>		
+<REL>				::= > | < | >= | <= | == | !=							
 <BOOL>				::=	[ <MATH_0_ALIAS> <REL> <MATH_0_ALIAS> ]											
 <COND_IF>			::=	if <BOOL> then do { <IMPL_LIST_ALIAS> } else do { <IMPL_LIST_ALIAS> } fi											
 <LOOP>				::=	for <VAR> by <MATH_0_ALIAS> to <MATH_0_ALIAS> do { <IMPL_LIST_ALIAS> } rof											
@@ -18,7 +18,7 @@
 <READ>				::=	read <READ_LIST>								
 <READ_LIST>			::=	<VAR> , <READ_LIST> | <VAR> .							
 <WRITE>				::=	write <WRITE_LIST>						
-<WRITE_LIST>		::=	<MATH_0_ALIAS> , <WRITE_LIST> | <MATH_0_ALIAS> .		
+<WRITE_LIST>		::=	<MATH_0_ALIAS> , <WRITE_LIST> | <MATH_0_ALIAS> .
 #aliases						
 <DECL_LIST_ALIAS>	::=	<DECL_LIST>											
 <IMPL_LIST_ALIAS>	::=	<IMPL_LIST>											

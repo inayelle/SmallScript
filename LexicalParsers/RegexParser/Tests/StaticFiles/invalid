@@ -1,0 +1,6 @@
+@decl
+{	declare first as int of &
+}
+@impl
+{	read first
+}

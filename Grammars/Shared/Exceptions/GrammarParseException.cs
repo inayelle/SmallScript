@@ -1,31 +1,31 @@
 using System;
-using SmallScript.Shared;
+using SmallScript.Shared.Details.Navigation;
 using SmallScript.Shared.Exceptions;
 
 namespace SmallScript.Grammars.Shared.Exceptions
 {
 	public class GrammarParseException : SmallScriptException
 	{
-		public Position OccuredAt { get; }
-
-		public GrammarParseException(Position occuredAt)
+		public GrammarParseException(FilePosition occuredAt)
 		{
 			OccuredAt = occuredAt;
 		}
 
-		public GrammarParseException(Position occuredAt, string message) : base(message)
+		public GrammarParseException(FilePosition occuredAt, string message) : base(message)
 		{
 			OccuredAt = occuredAt;
 		}
 
-		public GrammarParseException(Position occuredAt, Exception inner) : base(inner.Message, inner)
+		public GrammarParseException(FilePosition occuredAt, Exception inner) : base(inner.Message, inner)
 		{
 			OccuredAt = occuredAt;
 		}
 
-		public GrammarParseException(string message, Position occuredAt, Exception inner) : base(message, inner)
+		public GrammarParseException(string message, FilePosition occuredAt, Exception inner) : base(message, inner)
 		{
 			OccuredAt = occuredAt;
 		}
+
+		public FilePosition OccuredAt { get; }
 	}
 }
