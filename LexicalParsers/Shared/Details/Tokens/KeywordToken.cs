@@ -6,7 +6,7 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class KeywordToken : TokenBase
 	{
-		public KeywordToken(string value, FilePosition position, IGrammarEntry grammarEntry) 
+		public KeywordToken(string value, FilePosition position, IGrammarEntry grammarEntry)
 				: base(value, position, grammarEntry)
 		{
 		}

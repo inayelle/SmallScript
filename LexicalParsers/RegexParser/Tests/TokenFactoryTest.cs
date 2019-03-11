@@ -11,10 +11,6 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 {
 	public class TokenFactoryTest : SmallScriptTestBase
 	{
-		private static readonly string GrammarFile;
-
-		private readonly TokenFactory _factory;
-
 		static TokenFactoryTest()
 		{
 			var staticFilesDir = Path.GetFullPath("../../../StaticFiles");
@@ -27,17 +23,20 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			_factory = new TokenFactory(GetGrammar(), new IdentitySource());
 		}
 
-		[Fact]
-		public void TestCreateVariable()
+		private static readonly string GrammarFile;
+
+		private readonly TokenFactory _factory;
+
+		private static IGrammar GetGrammar()
 		{
-			var value = "$var";
+			var parser = new BackusNaurGrammarParser();
 
-			var token = _factory.Create(value, new FilePosition(1, 1));
-
-			Assert.IsType<VariableToken>(token);
-			Assert.Equal("var", token.Value);
+			using (var file = new FileStream(GrammarFile, FileMode.Open))
+			{
+				return parser.Parse(file);
+			}
 		}
-		
+
 		[Fact]
 		public void TestCreateEolDelimiter()
 		{
@@ -49,14 +48,15 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			Assert.Equal("<EOL>", token.Value);
 		}
 
-		private static IGrammar GetGrammar()
+		[Fact]
+		public void TestCreateVariable()
 		{
-			var parser = new BackusNaurGrammarParser();
+			var value = "$var";
 
-			using (var file = new FileStream(GrammarFile, FileMode.Open))
-			{
-				return parser.Parse(file);
-			}
+			var token = _factory.Create(value, new FilePosition(1, 1));
+
+			Assert.IsType<VariableToken>(token);
+			Assert.Equal("var", token.Value);
 		}
 	}
 }

@@ -8,16 +8,16 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class InvalidToken : IToken
 	{
-		public IGrammarEntry GrammarEntry => null;
-
-		public string       Value    { get; }
-		public FilePosition Position { get; }
-
 		public InvalidToken(string value, FilePosition position)
 		{
 			Value    = value;
 			Position = position;
 		}
+
+		public IGrammarEntry GrammarEntry => null;
+
+		public string       Value    { get; }
+		public FilePosition Position { get; }
 
 		public bool Equals(IToken other)
 		{

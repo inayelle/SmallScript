@@ -6,8 +6,6 @@ namespace SmallScript.Grammars.Shared.Exceptions
 {
 	public class GrammarParseException : SmallScriptException
 	{
-		public FilePosition OccuredAt { get; }
-
 		public GrammarParseException(FilePosition occuredAt)
 		{
 			OccuredAt = occuredAt;
@@ -27,5 +25,7 @@ namespace SmallScript.Grammars.Shared.Exceptions
 		{
 			OccuredAt = occuredAt;
 		}
+
+		public FilePosition OccuredAt { get; }
 	}
 }

@@ -1,7 +1,6 @@
 using System;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Interfaces;
-using SmallScript.Shared.Details;
 using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
 using SmallScript.Shared.Extensions;
@@ -10,10 +9,6 @@ namespace SmallScript.LexicalParsers.Shared.Base
 {
 	public abstract class TokenBase : IToken
 	{
-		public string        Value        { get; }
-		public FilePosition  Position     { get; }
-		public IGrammarEntry GrammarEntry { get; }
-
 		protected TokenBase(string value, FilePosition position, IGrammarEntry grammarEntry)
 		{
 			Value        = Require.NotNull(value, nameof(value));
@@ -21,18 +16,27 @@ namespace SmallScript.LexicalParsers.Shared.Base
 			Position     = Require.NotNull(position, nameof(position));
 		}
 
-		public virtual bool Equals(IToken other)
+		public string        Value        { get; }
+		public FilePosition  Position     { get; }
+		public IGrammarEntry GrammarEntry { get; }
+
+		public override bool Equals(object obj)
 		{
-			if (other == null)
+			if (ReferenceEquals(obj, null))
 			{
 				return false;
 			}
 
-			if (other == this)
+			if (ReferenceEquals(obj, this))
 			{
 				return true;
 			}
 
+			return Equals(obj as IToken);
+		}
+		
+		public virtual bool Equals(IToken other)
+		{
 			return other.GetType() == GetType() &&
 			       other.Value.InvariantEquals(Value);
 		}

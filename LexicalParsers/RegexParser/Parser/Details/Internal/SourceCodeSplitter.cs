@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,15 +14,12 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 		public ICollection<string> SplitByLines(string sourceCodeText)
 		{
 			var result = new List<string>();
-			
+
 			using (var reader = new StringReader(sourceCodeText))
 			{
 				string line = null;
-				
-				while ((line = reader.ReadLine()) != null)
-				{
-					result.Add(line + '\n');	
-				}
+
+				while ((line = reader.ReadLine()) != null) result.Add(line + '\n');
 			}
 
 			return result;
@@ -32,7 +28,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 		public ICollection<string> SplitByTokens(string line)
 		{
 			return Regex.Split(line, @"([\$@A-z_]+|[0-9]+|\-|\+|\*|\/|\*\*|,|\.|\?|\:|\n|\(|\)|\[|\])| |\t")
-			            .Where(l => !String.IsNullOrEmpty(l))
+			            .Where(l => !string.IsNullOrEmpty(l))
 			            .ToList();
 		}
 	}

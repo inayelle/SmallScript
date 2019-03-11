@@ -3,16 +3,18 @@ using Avalonia.Logging.Serilog;
 
 namespace SmallScript.DesktopUI
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 			BuildAvaloniaApp().Start<MainWindow>();
 		}
 
 		public static AppBuilder BuildAvaloniaApp()
-			=> AppBuilder.Configure<App>()
-			             .UsePlatformDetect()
-			             .LogToDebug();
+		{
+			return AppBuilder.Configure<App>()
+			                 .UsePlatformDetect()
+			                 .LogToDebug();
+		}
 	}
 }

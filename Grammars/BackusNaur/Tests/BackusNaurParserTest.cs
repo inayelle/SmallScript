@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
-using SmallScript.Grammars.BackusNaur.Grammar;
+using System.Linq;
 using SmallScript.Grammars.BackusNaur.Grammar.Details;
-using SmallScript.Grammars.BackusNaur.Parser;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
-using SmallScript.Grammars.BackusNaur.Parser.Exceptions;
+using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.Shared.Tests;
@@ -13,18 +13,46 @@ namespace SmallScript.Grammars.BackusNaur.Tests
 {
 	public class BackusNaurParserTest : SmallScriptTestBase
 	{
-		private static readonly string RulesFile;
-
 		static BackusNaurParserTest()
 		{
 			RulesFile = Path.Combine("../../..", "StaticFiles", "grammar.rules");
 		}
 
-		private readonly BackusNaurGrammarParser _parser;
-
 		public BackusNaurParserTest()
 		{
 			_parser = new BackusNaurGrammarParser();
+		}
+
+		private static readonly string RulesFile;
+
+		private readonly BackusNaurGrammarParser _parser;
+
+		[Fact]
+		public void TestParseFromFile()
+		{
+			IGrammar grammar = null;
+
+			using (var file = new FileStream(RulesFile, FileMode.Open))
+			{
+				grammar = _parser.Parse(file);
+			}
+
+			Assert.IsType<BackusNaurGrammar>(grammar);
+		}
+
+		[Fact]
+		public void TestParseWithComments()
+		{
+			const string input = "<SYNTAX>	::= a b <C>\n" +
+			                     "<C>		::= d e <F>\n" +
+			                     "#<F>		::= q w e";
+
+			var grammar = _parser.Parse(input);
+
+			Assert.IsType<BackusNaurGrammar>(grammar);
+
+			Assert.Equal(2, grammar.Rules.Count);
+			Assert.Equal(7, grammar.Entries.Count);
 		}
 
 		[Fact]
@@ -66,31 +94,16 @@ namespace SmallScript.Grammars.BackusNaur.Tests
 		}
 
 		[Fact]
-		public void TestParseWithComments()
+		public void Test()
 		{
-			const string input = "<SYNTAX>	::= a b <C>\n" +
-			                     "<C>		::= d e <F>\n" +
-			                     "#<F>		::= q w e";
+			var first = new NonTerminal("qwe");
+			var last  = new NonTerminal("qwe");
 
-			var grammar = _parser.Parse(input);
+			var list = new List<NonTerminal> { first, last };
 
-			Assert.IsType<BackusNaurGrammar>(grammar);
-
-			Assert.Equal(2, grammar.Rules.Count);
-			Assert.Equal(7, grammar.Entries.Count);
-		}
-
-		[Fact]
-		public void TestParseFromFile()
-		{
-			IGrammar grammar = null;
-
-			using (var file = new FileStream(RulesFile, FileMode.Open))
-			{
-				grammar = _parser.Parse(file);
-			}
-
-			Assert.IsType<BackusNaurGrammar>(grammar);
+			var dist = list.Distinct().ToList();
+		
+			Assert.Single(dist);
 		}
 	}
 }

@@ -6,12 +6,12 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class VariableToken : TokenBase
 	{
-		public int Id { get; }
-
 		public VariableToken(int id, string value, FilePosition position, IGrammarEntry grammarEntry)
 				: base(value, position, grammarEntry)
 		{
 			Id = id;
 		}
+
+		public int Id { get; }
 	}
 }

@@ -2,14 +2,16 @@ namespace SmallScript.Shared.Details.Navigation
 {
 	public class FileNavigation
 	{
-		public int Line   { get; private set; }
-		public int Column { get; private set; }
-
 		public FileNavigation(int line = 1, int column = 1)
 		{
 			Line   = line;
 			Column = column;
 		}
+
+		public int Line   { get; private set; }
+		public int Column { get; private set; }
+
+		public FilePosition CurrentPosition => new FilePosition(Line, Column);
 
 		public void MoveLine(int offset = 1)
 		{
@@ -30,7 +32,5 @@ namespace SmallScript.Shared.Details.Navigation
 		{
 			Column = column;
 		}
-
-		public FilePosition CurrentPosition => new FilePosition(Line, Column);
 	}
 }

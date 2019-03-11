@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestPolygon
+﻿namespace TestPolygon
 {
 	internal class Program
 	{

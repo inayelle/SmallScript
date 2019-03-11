@@ -8,13 +8,13 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 {
 	public class ConstantToken : TokenBase
 	{
-		public int Id { get; }
-
 		public ConstantToken(int id, string value, FilePosition position, IGrammarEntry grammarEntry) :
 				base(value, position, grammarEntry)
 		{
 			Id = id;
 		}
+
+		public int Id { get; }
 
 		public override bool Equals(IToken other)
 		{
@@ -25,7 +25,7 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 		{
 			return HashCode.Combine(GrammarEntry, Id);
 		}
-		
+
 		public static ConstantToken CloneWithPosition(ConstantToken other, FilePosition position)
 		{
 			return new ConstantToken(other.Id, other.Value, position, other.GrammarEntry);

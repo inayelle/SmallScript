@@ -1,11 +1,7 @@
 using System.IO;
-using Moq;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.LexicalParsers.RegexParser.Parser.Details;
-using SmallScript.LexicalParsers.Shared.Base;
 using SmallScript.LexicalParsers.Shared.Details;
-using SmallScript.Shared.Details.Navigation;
 using SmallScript.Shared.Tests;
 using Xunit;
 
@@ -13,10 +9,6 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 {
 	public class RegexParserTest : SmallScriptTestBase
 	{
-		private static readonly string GrammarFile;
-		private static readonly string CorrectSyntaxFile;
-		private static readonly string InvalidSyntaxFile;
-
 		static RegexParserTest()
 		{
 			var staticFilesDir = Path.GetFullPath("../../../StaticFiles");
@@ -26,11 +18,25 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			GrammarFile       = Path.Combine(staticFilesDir, "grammar");
 		}
 
-		private readonly Parser.Details.RegexParser _parser;
-
 		public RegexParserTest()
 		{
 			_parser = new Parser.Details.RegexParser(GetGrammar());
+		}
+
+		private static readonly string GrammarFile;
+		private static readonly string CorrectSyntaxFile;
+		private static readonly string InvalidSyntaxFile;
+
+		private readonly Parser.Details.RegexParser _parser;
+
+		private static IGrammar GetGrammar()
+		{
+			var parser = new BackusNaurGrammarParser();
+
+			using (var file = new FileStream(GrammarFile, FileMode.Open))
+			{
+				return parser.Parse(file);
+			}
 		}
 
 		[Fact]
@@ -62,16 +68,6 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 
 			Assert.False(result.Ok);
 			Assert.NotNull(result.Error);
-		}
-
-		private static IGrammar GetGrammar()
-		{
-			var parser = new BackusNaurGrammarParser();
-
-			using (var file = new FileStream(GrammarFile, FileMode.Open))
-			{
-				return parser.Parse(file);
-			}
 		}
 	}
 }

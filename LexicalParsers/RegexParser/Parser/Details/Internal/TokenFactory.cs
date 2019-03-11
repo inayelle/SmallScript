@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,9 +17,9 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 {
 	internal class TokenFactory : ITokenFactory
 	{
+		private readonly IDictionary<string, ConstantToken> _constantsCache;
 		private readonly IGrammar                           _grammar;
 		private readonly IIdentitySource                    _identitySource;
-		private readonly IDictionary<string, ConstantToken> _constantsCache;
 		private readonly IDictionary<string, VariableToken> _variablesCache;
 
 		public TokenFactory(IGrammar grammar, IIdentitySource identitySource)
@@ -37,25 +36,13 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 			Require.NotNull(value, nameof(value));
 			Require.NotNull(position, nameof(position));
 
-			if (IsVariable(value, position, out var variable))
-			{
-				return variable;
-			}
+			if (IsVariable(value, position, out var variable)) return variable;
 
-			if (IsConstant(value, position, out var constant))
-			{
-				return constant;
-			}
+			if (IsConstant(value, position, out var constant)) return constant;
 
-			if (IsKeyword(value, position, out var keyword))
-			{
-				return keyword;
-			}
+			if (IsKeyword(value, position, out var keyword)) return keyword;
 
-			if (IsDelimiter(value, position, out var delimiter))
-			{
-				return delimiter;
-			}
+			if (IsDelimiter(value, position, out var delimiter)) return delimiter;
 
 			return new InvalidToken(value, position);
 		}
@@ -86,7 +73,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		private bool IsConstant(string value, FilePosition position, out ConstantToken constantToken)
 		{
-			if (!value.All(Char.IsDigit))
+			if (!value.All(char.IsDigit))
 			{
 				constantToken = null;
 				return false;
@@ -112,7 +99,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 		{
 			var grammarEntry = _grammar.GetEntryByValue(value);
 
-			if (grammarEntry == null || !value.All(Char.IsLetter))
+			if (grammarEntry == null || !value.All(char.IsLetter))
 			{
 				keywordToken = null;
 				return false;
@@ -124,11 +111,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		private bool IsDelimiter(string value, FilePosition position, out DelimiterToken delimiterToken)
 		{
-			if (value.InvariantEquals("\n"))
-			{
-				value = "<EOL>";
-			}
-			
+			if (value.InvariantEquals("\n")) value = "<EOL>";
+
 			var grammarEntry = _grammar.GetEntryByValue(value);
 
 			if (grammarEntry == null)

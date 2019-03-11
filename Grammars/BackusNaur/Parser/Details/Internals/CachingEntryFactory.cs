@@ -19,21 +19,14 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details.Internals
 
 		public IGrammarEntry CreateEntry(string value)
 		{
-			if (_cache.ContainsKey(value))
-			{
-				return _cache[value];
-			}
+			if (_cache.ContainsKey(value)) return _cache[value];
 
 			IGrammarEntry instance = null;
 
 			if (Regex.IsMatch(value, NonTerminalRegex))
-			{
 				instance = CreateNonTerminal(value);
-			}
 			else
-			{
 				instance = CreateTerminal(value);
-			}
 
 			return _cache[value] = instance;
 		}

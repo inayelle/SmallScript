@@ -6,8 +6,6 @@ namespace SmallScript.LexicalParsers.Shared.Exceptions
 {
 	public class LexicalParseException : SmallScriptException
 	{
-		public FilePosition OccuredAt { get; }
-
 		public LexicalParseException(FilePosition occuredAt)
 		{
 			OccuredAt = occuredAt;
@@ -23,5 +21,7 @@ namespace SmallScript.LexicalParsers.Shared.Exceptions
 		{
 			OccuredAt = occuredAt;
 		}
+
+		public FilePosition OccuredAt { get; }
 	}
 }

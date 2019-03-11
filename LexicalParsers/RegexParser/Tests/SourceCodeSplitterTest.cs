@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using SmallScript.LexicalParsers.RegexParser.Parser.Details;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
 using SmallScript.Shared.Tests;
 using Xunit;
@@ -9,12 +7,12 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 {
 	public class SourceCodeSplitterTest : SmallScriptTestBase
 	{
-		private readonly SourceCodeSplitter _splitter;
-
 		public SourceCodeSplitterTest()
 		{
 			_splitter = new SourceCodeSplitter();
 		}
+
+		private readonly SourceCodeSplitter _splitter;
 
 		[Fact]
 		public void TestSplitLines()
@@ -51,7 +49,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			var entries = _splitter.SplitByTokens(text);
 
 			Assert.NotEmpty(entries);
-			Assert.False(entries.Any(String.IsNullOrEmpty));
+			Assert.DoesNotContain(entries, string.IsNullOrEmpty);
 			Assert.Equal(expectedTokenCount, entries.Count);
 		}
 	}
