@@ -3,7 +3,7 @@ using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
 
 namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Extensions
 {
-	internal static class PairExtensions
+	public static class PairExtensions
 	{
 		public static bool IsFaulty(this Pair pair)
 		{

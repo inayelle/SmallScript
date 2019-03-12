@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using SmallScript.LexicalParsers.RegexParser.Parser.Interfaces;
 
@@ -15,11 +16,21 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 		{
 			var result = new List<string>();
 
-			using (var reader = new StringReader(sourceCodeText))
+			var sb = new StringBuilder();
+			foreach (var ch in sourceCodeText)
 			{
-				string line = null;
+				sb.Append(ch);
 
-				while ((line = reader.ReadLine()) != null) result.Add(line + '\n');
+				if (ch == '\n')
+				{
+					result.Add(sb.ToString());
+					sb.Clear();
+				}
+			}
+
+			if (sb.Length > 0)
+			{
+				result.Add(sb.ToString());
 			}
 
 			return result;
@@ -27,7 +38,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		public ICollection<string> SplitByTokens(string line)
 		{
-			return Regex.Split(line, @"([\$@A-z_]+|[0-9]+|\-|\+|\*|\/|\*\*|,|\.|\?|\:|\n|\(|\)|\[|\])| |\t")
+			return Regex.Split(line, @"([@A-z_]+|[0-9]+|\-|\+|\*|\/|\*\*|,|\.|\?|\:|\n|\(|\)|\[|\]|\{|\})| |\t")
 			            .Where(l => !string.IsNullOrEmpty(l))
 			            .ToList();
 		}

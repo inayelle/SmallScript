@@ -15,7 +15,7 @@ namespace SmallScript.Grammars.BackusNaur.Tests
 	{
 		static BackusNaurParserTest()
 		{
-			RulesFile = Path.Combine("../../..", "StaticFiles", "grammar.rules");
+			RulesFile = Path.Combine("../../..", "StaticFiles", "grammar");
 		}
 
 		public BackusNaurParserTest()

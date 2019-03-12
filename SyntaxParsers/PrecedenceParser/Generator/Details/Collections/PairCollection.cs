@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SmallScript.Grammars.Shared.Interfaces;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
+namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details.Collections
 {
 	public class PairCollection : ICollection<Pair>
 	{

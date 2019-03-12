@@ -1,11 +1,15 @@
-decl
-{	declare $first as int of 322
-	declare $last as int of 228 
-}
-impl
-{	stdin >> $first >> $last.
+/bin/ss
+let var { [ 15 > 10 ] ? 15 : 10 }
+let kek { var }
 
-	for $first by 1 to $last do {
-		stdout << $first.
-	} rof
-}
+for var to 10 by 1 do
+	stdout << var
+rof
+
+let kek { (5 + 3) * 2 ** 3 }
+
+if [ var > 10] then do
+	stdin >> var
+else do
+	stdin >> kek
+fi

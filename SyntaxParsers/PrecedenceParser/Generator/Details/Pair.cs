@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Enums;
+using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Extensions;
 
 namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 {
@@ -10,15 +12,16 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 	{
 		private readonly HashSet<RelationType> _relations;
 
-		public IGrammarEntry             Left      { get; }
-		public IGrammarEntry             Right     { get; }
-		
+		public IGrammarEntry Left  { get; }
+		public IGrammarEntry Right { get; }
+
 		public IEnumerable<RelationType> Relations => _relations;
 
 		public Pair(IGrammarEntry left, IGrammarEntry right)
 		{
-			Left       = Require.NotNull(left, nameof(left));
-			Right      = Require.NotNull(right, nameof(right));
+			Left  = Require.NotNull(left, nameof(left));
+			Right = Require.NotNull(right, nameof(right));
+
 			_relations = new HashSet<RelationType>();
 		}
 
@@ -31,7 +34,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 		{
 			return _relations.Contains(relation);
 		}
-		
+
 		public bool Equals(Pair other)
 		{
 			if (ReferenceEquals(null, other))
@@ -55,6 +58,11 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 		public override int GetHashCode()
 		{
 			return HashCode.Combine(Left, Right);
+		}
+
+		public override string ToString()
+		{
+			return $"{Left, 20} | {String.Join(' ', Relations.Select(r => r.AsString())), 7} | {Right}";
 		}
 	}
 }

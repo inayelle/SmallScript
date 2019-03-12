@@ -17,8 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\LexicalParsers\RegexParser\Parser\Parser.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Generator\Generator.csproj" />
+    <ProjectReference Include="..\Parser\Parser.csproj" />
   </ItemGroup>
 
 </Project>

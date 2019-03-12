@@ -13,12 +13,12 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Extensions
 
 		public static IGrammarEntry GetVariableEntry(this IGrammar grammar)
 		{
-			return grammar.Entries.First(e => e.Value.InvariantEquals("<VAR>"));
+			return grammar.Entries.First(e => e.Value.InvariantEquals("@VAR"));
 		}
 
 		public static IGrammarEntry GetConstantEntry(this IGrammar grammar)
 		{
-			return grammar.Entries.First(e => e.Value.InvariantEquals("<CONST>"));
+			return grammar.Entries.First(e => e.Value.InvariantEquals("@CONST"));
 		}
 	}
 }

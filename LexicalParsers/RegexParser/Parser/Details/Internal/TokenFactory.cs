@@ -36,20 +36,24 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 			Require.NotNull(value, nameof(value));
 			Require.NotNull(position, nameof(position));
 
-			if (IsVariable(value, position, out var variable)) return variable;
+			if (IsKeyword(value, position, out var keyword)) 
+				return keyword;
+			
+			if (IsConstant(value, position, out var constant)) 
+				return constant;
 
-			if (IsConstant(value, position, out var constant)) return constant;
+			if (IsVariable(value, position, out var variable)) 
+				return variable;
 
-			if (IsKeyword(value, position, out var keyword)) return keyword;
-
-			if (IsDelimiter(value, position, out var delimiter)) return delimiter;
+			if (IsDelimiter(value, position, out var delimiter)) 
+				return delimiter;
 
 			return new InvalidToken(value, position);
 		}
 
 		private bool IsVariable(string value, FilePosition position, out VariableToken variableToken)
 		{
-			if (!Regex.IsMatch(value, @"^\$[A-z_]+$"))
+			if (!Regex.IsMatch(value, @"^[A-z_]+$"))
 			{
 				variableToken = null;
 				return false;

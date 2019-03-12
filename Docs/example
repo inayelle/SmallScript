@@ -1,0 +1,13 @@
+let kek = [ 10 ]
+
+for var by [ 1 ] to [ 10 ] do
+	stdout << var
+rof
+
+let kek = [ ( 5 - 10 ) * 3 ** 10 ]
+
+if [ var ] > [ 10 ] then do
+	stdin >> var
+else do
+	stdin >> kek
+fi

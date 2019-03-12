@@ -8,7 +8,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Extensions
 	{
 		public static IGrammarEntry With(this IGrammar grammar, Alternative alternative)
 		{
-			return grammar.Rules.First(r => r.Alternatives.Contains(alternative)).Root;
+			return grammar.Rules.FirstOrDefault(r => r.Alternatives.Contains(alternative))?.Root;
 		}
 	}
 }

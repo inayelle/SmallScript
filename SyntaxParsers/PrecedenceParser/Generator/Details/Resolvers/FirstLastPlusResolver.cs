@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Interfaces;
@@ -13,28 +14,50 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details.Resolvers
 
 		private static void Visit(DetailedNonTerminal nonTerminal)
 		{
-			if (nonTerminal.PlusVisited)
+			ResolveFirstPlus(nonTerminal);
+			ResolveLastPlus(nonTerminal);
+		}
+
+		private static void ResolveFirstPlus(DetailedNonTerminal nonTerminal)
+		{
+//			if (nonTerminal.FirstPlusVisited)
+//			{
+//				return;
+//			}
+
+			nonTerminal.FirstPlusVisited = true;
+
+			var relations = nonTerminal.SequenceRelations;
+
+			relations.AddFirstPlus(relations.First);
+
+			foreach (var entry in relations.First.OfType<DetailedNonTerminal>().ToList())
 			{
-				return;
+				if (!entry.FirstPlusVisited)
+					ResolveFirstPlus(entry);
+
+				relations.AddFirstPlus(entry.SequenceRelations.FirstPlus);
 			}
+		}
 
-			nonTerminal.PlusVisited = true;
+		private static void ResolveLastPlus(DetailedNonTerminal nonTerminal)
+		{
+//			if (nonTerminal.LastPlusVisited)
+//			{
+//				return;
+//			}
 
-			nonTerminal.SequenceRelations.AddFirstPlus(nonTerminal.SequenceRelations.First.ToArray());
-			nonTerminal.SequenceRelations.AddLastPlus(nonTerminal.SequenceRelations.Last.ToArray());
+			nonTerminal.LastPlusVisited = true;
 
-			foreach (var entry in nonTerminal.SequenceRelations.First.OfType<DetailedNonTerminal>())
+			var relations = nonTerminal.SequenceRelations;
+			relations.AddLastPlus(relations.Last);
+
+			foreach (var entry in relations.Last.OfType<DetailedNonTerminal>().ToList())
 			{
-				Visit(entry);
+				if (!entry.LastPlusVisited)
+					ResolveLastPlus(entry);
 
-				nonTerminal.SequenceRelations.AddFirstPlus(entry.SequenceRelations.FirstPlus.ToArray());
-			}
-
-			foreach (var entry in nonTerminal.SequenceRelations.Last.OfType<DetailedNonTerminal>())
-			{
-				Visit(entry);
-
-				nonTerminal.SequenceRelations.AddLastPlus(entry.SequenceRelations.Last.ToArray());
+				relations.AddLastPlus(entry.SequenceRelations.LastPlus);
 			}
 		}
 	}

@@ -12,5 +12,17 @@ namespace SmallScript.Shared.Details.Auxiliary
 
 			return instance;
 		}
+
+		public static TTarget OfType<TTarget>(object instance, [CallerMemberName] string name = null)
+				where TTarget : class
+		{
+			if (instance is TTarget t)
+			{
+				return t;
+			}
+
+			var actualType = instance?.GetType().Name ?? "null";
+			throw new ArgumentException($"{name} expected to be {typeof(TTarget).Name}, got {actualType}");
+		}
 	}
 }

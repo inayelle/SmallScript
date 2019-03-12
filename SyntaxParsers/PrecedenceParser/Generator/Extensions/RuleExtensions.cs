@@ -14,10 +14,5 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Extensions
 		{
 			resolver.Visit(rule);
 		}
-		
-		public static void Accept(this IRule rule, EqualityResolver resolver)
-		{
-			resolver.Visit(rule);
-		}
 	}
 }

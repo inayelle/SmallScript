@@ -2,7 +2,7 @@ namespace SmallScript.Shared.Details.Navigation
 {
 	public class FilePosition
 	{
-		public FilePosition(int line, int column)
+		public FilePosition(int line = 1, int column = 1)
 		{
 			Line   = line;
 			Column = column;
