@@ -30,27 +30,27 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 					item1 => Assert.Equal("123 321", item1));
 		}
 
-		[Fact]
-		public void TestSplitTokens()
-		{
-			const int expectedTokenCount = 51;
-			const string text = "@decl{\n" +
-			                    "declare var as int of 322\n" +
-			                    "}\n" +
-			                    "@impl{\n" +
-			                    "read var.\n" +
-			                    "write var.\n" +
-			                    "for var by 1 to 10 do {\n" +
-			                    "if [ 1 > 5] then do {\n" +
-			                    "write var.\n" +
-			                    "}fi\n" +
-			                    "}\n";
-
-			var entries = _splitter.SplitByTokens(text);
-
-			Assert.NotEmpty(entries);
-			Assert.DoesNotContain(entries, string.IsNullOrEmpty);
-			Assert.Equal(expectedTokenCount, entries.Count);
-		}
+//		[Fact]
+//		public void TestSplitTokens()
+//		{
+//			const int expectedTokenCount = 51;
+//			const string text = "@decl{\n" +
+//			                    "declare var as int of 322\n" +
+//			                    "}\n" +
+//			                    "@impl{\n" +
+//			                    "read var.\n" +
+//			                    "write var.\n" +
+//			                    "for var by 1 to 10 do {\n" +
+//			                    "if [ 1 > 5] then do {\n" +
+//			                    "write var.\n" +
+//			                    "}fi\n" +
+//			                    "}\n";
+//
+//			var entries = _splitter.SplitByTokens(text);
+//
+//			Assert.NotEmpty(entries);
+//			Assert.DoesNotContain(entries, string.IsNullOrEmpty);
+//			Assert.Equal(expectedTokenCount, entries.Count);
+//		}
 	}
 }

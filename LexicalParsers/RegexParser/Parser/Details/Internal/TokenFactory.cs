@@ -36,6 +36,9 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 			Require.NotNull(value, nameof(value));
 			Require.NotNull(position, nameof(position));
 
+			if (IsDelimiter(value, position, out var delimiter)) 
+				return delimiter;
+			
 			if (IsKeyword(value, position, out var keyword)) 
 				return keyword;
 			
@@ -44,9 +47,6 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 			if (IsVariable(value, position, out var variable)) 
 				return variable;
-
-			if (IsDelimiter(value, position, out var delimiter)) 
-				return delimiter;
 
 			return new InvalidToken(value, position);
 		}
@@ -65,11 +65,10 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 			}
 			else
 			{
-				var name         = value.Substring(1);
 				var grammarEntry = _grammar.GetVariableEntry();
 				var id           = _identitySource.NextVariableId;
 
-				variableToken = _variablesCache[value] = new VariableToken(id, name, position, grammarEntry);
+				variableToken = _variablesCache[value] = new VariableToken(id, value, position, grammarEntry);
 			}
 
 			return true;
@@ -115,7 +114,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		private bool IsDelimiter(string value, FilePosition position, out DelimiterToken delimiterToken)
 		{
-			if (value.InvariantEquals("\n")) value = "<EOL>";
+			if (value.InvariantEquals("\n")) 
+				value = "<EOL>";
 
 			var grammarEntry = _grammar.GetEntryByValue(value);
 

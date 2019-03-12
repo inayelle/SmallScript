@@ -1,0 +1,28 @@
+ <program> ::= <declaration list> { <operator list 2> }
+ <declaration list> ::= <declaration> | <declaration list> <declaration>
+ <declaration> ::= <type> <variable list>
+ <type> ::= int | float
+ <variable list> ::= identifier ! | identifier , <variable list>
+ <operator block> ::= { <operator list 2> } | <operator> end
+ <operator list 2> ::= <operator list>
+ <operator list> ::= <operator list> <operator> ; | <operator> ;
+ <operator> ::= <input> | <output> | <assignment> | <loop> | <conditional> | <label call> | label
+ <label call> ::= goto label
+ <input> ::= cin >> identifier | <input> >> identifier
+ <output> ::= cout << identifier | <output> << identifier | cout << constant | <output> << constant
+ <assignment> ::= identifier = <E3>
+ <loop> ::= for [ identifier = <E3> _ <LE 2> _ <E2> ] <operator block>
+ <conditional> ::= if ( <LE 2> ) <operator block>
+ <LE 2> ::= <LE>
+ <LE> ::= <LE> or <LT> | <LT>
+ <LT> ::= <LF 2> and <LT> | <LF 2>
+ <LF 2> ::= <LF>
+ <LF> ::= <R> | ( <LE 2> ) | not <LF>
+ <R> ::= <E> <LS> <E2>
+ <LS> ::= < | > | <= | >= | == | !=
+ <E3> ::= <E2>
+ <E2> ::= <E>
+ <E> ::= <T2> | <E> + <T2> | <E> - <T2>
+ <T2> ::= <T>
+ <T> ::= <V> | <T> * <V> | <T> / <V>
+ <V> ::= identifier | constant | ( <E3> )

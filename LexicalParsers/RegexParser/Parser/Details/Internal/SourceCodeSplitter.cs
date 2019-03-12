@@ -12,6 +12,9 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 {
 	internal class SourceCodeSplitter : ISourceCodeSplitter
 	{
+		private const string TokenPattern = 
+				@"([A-z_][A-z0-9_]+|>>|<<|>|<|==|!=|>=|<=|[0-9]+|\-|\+|\*|\/|\*\*|\?|\:|\n|\(|\)|\[|\]|=)| |\t";
+		
 		public ICollection<string> SplitByLines(string sourceCodeText)
 		{
 			var result = new List<string>();
@@ -38,7 +41,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal
 
 		public ICollection<string> SplitByTokens(string line)
 		{
-			return Regex.Split(line, @"([@A-z_]+|[0-9]+|\-|\+|\*|\/|\*\*|,|\.|\?|\:|\n|\(|\)|\[|\]|\{|\})| |\t")
+			return Regex.Split(line, TokenPattern)
 			            .Where(l => !string.IsNullOrEmpty(l))
 			            .ToList();
 		}
