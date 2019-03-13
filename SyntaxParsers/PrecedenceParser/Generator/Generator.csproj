@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>SmallScript.SyntaxParsers.PrecedenceParser.Generator</AssemblyName>
+    <RootNamespace>SmallScript.SyntaxParsers.PrecedenceParser.Generator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Grammars\BackusNaur\Grammar\Grammar.csproj" />
+    <ProjectReference Include="..\..\..\Grammars\BackusNaur\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\..\Grammars\Shared\Shared.csproj" />
+  </ItemGroup>
+
+</Project>

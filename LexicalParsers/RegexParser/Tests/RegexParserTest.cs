@@ -13,7 +13,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 		{
 			var staticFilesDir = Path.GetFullPath("../../../StaticFiles");
 
-			CorrectSyntaxFile = Path.Combine(staticFilesDir, "correct");
+			CorrectSyntaxFile = Path.Combine(staticFilesDir, "example");
 			InvalidSyntaxFile = Path.Combine(staticFilesDir, "invalid");
 			GrammarFile       = Path.Combine(staticFilesDir, "grammar");
 		}
@@ -52,8 +52,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			Assert.True(result.Ok);
 			Assert.Null(result.Error);
 			Assert.NotEmpty(result.Tokens);
-			Assert.Equal(3, result.Constants.Count);
-			Assert.Equal(2, result.Variables.Count);
+			Assert.Equal(6, result.Constants.Count);
+			Assert.Equal(3, result.Variables.Count);
 		}
 
 		[Fact]

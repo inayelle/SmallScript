@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.Shared.Details.Auxiliary;
 
 namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 {
@@ -9,7 +10,7 @@ namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 	{
 		public Alternative(IEnumerable<IGrammarEntry> entries)
 		{
-			Entries = entries ?? throw new ArgumentNullException(nameof(entries));
+			Entries = Require.NotNull(entries, nameof(entries));
 		}
 
 		public IEnumerable<IGrammarEntry> Entries { get; }
@@ -36,7 +37,14 @@ namespace SmallScript.Grammars.BackusNaur.Grammar.Details
 
 		public override int GetHashCode()
 		{
-			return Entries.GetHashCode();
+			var hash = new HashCode();
+
+			foreach (var entry in Entries)
+			{
+				hash.Add(entry);
+			}
+
+			return hash.ToHashCode();
 		}
 
 		public override string ToString()

@@ -34,7 +34,7 @@ namespace SmallScript.LexicalParsers.Shared.Base
 
 			return Equals(obj as IToken);
 		}
-		
+
 		public virtual bool Equals(IToken other)
 		{
 			return other.GetType() == GetType() &&
@@ -49,6 +49,26 @@ namespace SmallScript.LexicalParsers.Shared.Base
 		public override string ToString()
 		{
 			return $"{Value} : {Position}";
+		}
+
+		public static bool operator ==(TokenBase first, TokenBase last)
+		{
+			return first?.Equals(last) ?? false;
+		}
+
+		public static bool operator !=(TokenBase first, TokenBase last)
+		{
+			return first?.Equals(last) ?? false;
+		}
+
+		public static bool operator ==(TokenBase token, string value)
+		{
+			return token?.Value.InvariantEquals(value) ?? false;
+		}
+
+		public static bool operator !=(TokenBase token, string value)
+		{
+			return !(token == value);
 		}
 	}
 }

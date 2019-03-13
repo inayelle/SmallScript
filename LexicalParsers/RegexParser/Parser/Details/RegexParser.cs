@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
 using SmallScript.LexicalParsers.RegexParser.Parser.Interfaces;
@@ -78,7 +79,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details
 		{
 			Require.NotNull(stream, nameof(stream));
 
-			using (var reader = new StreamReader(stream))
+			using (var reader = new StreamReader(stream, Encoding.UTF8))
 			{
 				return Parse(reader.ReadToEnd());
 			}

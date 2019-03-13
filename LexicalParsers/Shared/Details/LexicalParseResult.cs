@@ -9,6 +9,14 @@ namespace SmallScript.LexicalParsers.Shared.Details
 {
 	public class LexicalParseResult
 	{
+		public IReadOnlyCollection<IToken>        Tokens        { get; }
+		public IReadOnlyCollection<ConstantToken> Constants     { get; }
+		public IReadOnlyCollection<VariableToken> Variables     { get; }
+		public IReadOnlyCollection<InvalidToken>  InvalidTokens { get; }
+
+		public bool       Ok    { get; }
+		public ParseError Error { get; }
+		
 		public LexicalParseResult(IEnumerable<IToken> tokens)
 		{
 			var enumerable = tokens as IToken[] ?? tokens.ToArray();
@@ -45,13 +53,5 @@ namespace SmallScript.LexicalParsers.Shared.Details
 			Constants = Array.Empty<ConstantToken>();
 			Variables = Array.Empty<VariableToken>();
 		}
-
-		public IReadOnlyCollection<IToken>        Tokens        { get; }
-		public IReadOnlyCollection<ConstantToken> Constants     { get; }
-		public IReadOnlyCollection<VariableToken> Variables     { get; }
-		public IReadOnlyCollection<InvalidToken>  InvalidTokens { get; }
-
-		public bool       Ok    { get; }
-		public ParseError Error { get; }
 	}
 }

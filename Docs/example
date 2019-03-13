@@ -1,0 +1,9 @@
+let kek = -10 - 10 ** (-10) + (-10)
+let var = 0
+stdin >> kek
+stdout << var
+for var by 1 to 10 do	if 5 != 10 then do		stdout << -322
+else do	stdin >> kek
+fi
+rof
+let ALIK ~ 322 > 1488 ? 1 : 0

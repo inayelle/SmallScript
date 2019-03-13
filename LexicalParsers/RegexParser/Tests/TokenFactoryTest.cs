@@ -47,16 +47,5 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			Assert.IsType<DelimiterToken>(token);
 			Assert.Equal("<EOL>", token.Value);
 		}
-
-		[Fact]
-		public void TestCreateVariable()
-		{
-			var value = "$var";
-
-			var token = _factory.Create(value, new FilePosition(1, 1));
-
-			Assert.IsType<VariableToken>(token);
-			Assert.Equal("var", token.Value);
-		}
 	}
 }
