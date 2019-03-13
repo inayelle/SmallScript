@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>SmallScript.SyntaxParsers.PrecedenceParser.Tests</AssemblyName>
+    <AssemblyName>SmallScript.Calculator.Tests</AssemblyName>
 
-    <RootNamespace>SmallScript.SyntaxParsers.PrecedenceParser.Tests</RootNamespace>
+    <RootNamespace>SmallScript.Calculator.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\LexicalParsers\RegexParser\Parser\Parser.csproj" />
-    <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
-    <ProjectReference Include="..\Generator\Generator.csproj" />
-    <ProjectReference Include="..\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\Grammars\BackusNaur\Tests\Tests.csproj" />
+    <ProjectReference Include="..\..\LexicalParsers\RegexParser\Tests\Tests.csproj" />
+    <ProjectReference Include="..\..\SyntaxParsers\PrecedenceParser\Tests\Tests.csproj" />
+    <ProjectReference Include="..\Calculator\Calculator.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\LexicalParsers\RegexParser\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\SyntaxParsers\PrecedenceParser\Parser\Parser.csproj" />
   </ItemGroup>
 
 </Project>
