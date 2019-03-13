@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details
 	{
 		private ITokenFactory       _factory;
 		private ISourceCodeSplitter _splitter;
+
+		public event Action<IList<IToken>> OnSuccessfulParse;
+		public event Action<IList<IToken>> OnFailedParse;
 
 		public RegexParser(IGrammar grammar) : this(new SourceCodeSplitter(), grammar)
 		{
@@ -69,8 +73,11 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Details
 			}
 			catch (SmallScriptException exception)
 			{
+				OnFailedParse?.Invoke(tokens);
 				return new LexicalParseResult(new ParseError(exception.Message, navigation.CurrentPosition));
 			}
+			
+			OnSuccessfulParse?.Invoke(tokens);
 
 			return new LexicalParseResult(tokens);
 		}

@@ -17,22 +17,22 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 {
 	public class ParserTest : SmallScriptTestBase
 	{
-		private readonly        ITestOutputHelper _testOutputHelper;
-		private static readonly string            GrammarFile;
-		private static readonly string            CorrectTestFile;
-		private static readonly string            InvalidTestFile;
-
+		private static readonly string   GrammarFile;
+		private static readonly string   CorrectTestFile;
+		private static readonly string   InvalidTestFile;
 		private static readonly IGrammar _grammar;
 
+		private readonly PostParseFormattingHandler      _formatter;
+		private readonly ITestOutputHelper               _testOutputHelper;
 		private readonly Parser.Details.PrecedenceParser _parser;
 
 		static ParserTest()
 		{
 			var staticDir = Path.GetFullPath("../../../StaticFiles");
 
-			GrammarFile = Path.Combine(staticDir, "grammar");
-			CorrectTestFile    = Path.Combine(staticDir, "example");
-			InvalidTestFile    = Path.Combine(staticDir, "invalid");
+			GrammarFile     = Path.Combine(staticDir, "grammar");
+			CorrectTestFile = Path.Combine(staticDir, "example");
+			InvalidTestFile = Path.Combine(staticDir, "invalid");
 
 			_grammar = GetCorrectGrammar();
 		}
@@ -50,7 +50,9 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 		public ParserTest(ITestOutputHelper testOutputHelper)
 		{
 			_testOutputHelper = testOutputHelper;
-			_parser           = new Parser.Details.PrecedenceParser(_grammar);
+
+			_formatter = new PostParseFormattingHandler();
+			_parser    = new Parser.Details.PrecedenceParser(_grammar);
 		}
 
 		[Fact]
@@ -77,9 +79,10 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			Assert.Equal(5, result.Error.OccuredAt.Line);
 		}
 
-		private static LexicalParseResult GetTestLexicalParseResult(string filepath)
+		private LexicalParseResult GetTestLexicalParseResult(string filepath)
 		{
 			var parser = new RegexParser(_grammar);
+			parser.OnSuccessfulParse += _formatter.Handle;
 
 			using (var file = new FileStream(filepath, FileMode.Open))
 			{
