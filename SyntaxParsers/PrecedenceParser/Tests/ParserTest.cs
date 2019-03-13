@@ -19,7 +19,8 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 	{
 		private readonly        ITestOutputHelper _testOutputHelper;
 		private static readonly string            GrammarFile;
-		private static readonly string            TestFile;
+		private static readonly string            CorrectTestFile;
+		private static readonly string            InvalidTestFile;
 
 		private static readonly IGrammar _grammar;
 
@@ -30,7 +31,8 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			var staticDir = Path.GetFullPath("../../../StaticFiles");
 
 			GrammarFile = Path.Combine(staticDir, "grammar");
-			TestFile    = Path.Combine(staticDir, "example");
+			CorrectTestFile    = Path.Combine(staticDir, "example");
+			InvalidTestFile    = Path.Combine(staticDir, "invalid");
 
 			_grammar = GetCorrectGrammar();
 		}
@@ -52,30 +54,34 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 		}
 
 		[Fact]
-		public void TestParse()
+		public void TestCorrectParse()
 		{
-			var lexResult = GetTestLexicalParseResult();
-
-			if (!lexResult.Ok)
-			{
-				throw new Exception("BAD EXAMPLE");
-			}
+			var lexResult = GetTestLexicalParseResult(CorrectTestFile);
 
 			_parser.OnSequenceReplacement += s => _testOutputHelper.WriteLine(s);
 			var result = _parser.Parse(lexResult);
-
-			var message = result.Ok ? "OK" : $"{result.Error.Message} at {result.Error.OccuredAt}";
-			_testOutputHelper.WriteLine(message);
 
 			Assert.True(result.Ok);
 			Assert.Null(result.Error);
 		}
 
-		private static LexicalParseResult GetTestLexicalParseResult()
+		[Fact]
+		public void TestInvalidSyntax()
+		{
+			var lexResult = GetTestLexicalParseResult(InvalidTestFile);
+
+			var result = _parser.Parse(lexResult);
+
+			Assert.False(result.Ok);
+			Assert.NotNull(result.Error);
+			Assert.Equal(5, result.Error.OccuredAt.Line);
+		}
+
+		private static LexicalParseResult GetTestLexicalParseResult(string filepath)
 		{
 			var parser = new RegexParser(_grammar);
 
-			using (var file = new FileStream(TestFile, FileMode.Open))
+			using (var file = new FileStream(filepath, FileMode.Open))
 			{
 				return parser.Parse(file);
 			}

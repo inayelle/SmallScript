@@ -17,8 +17,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 		[Fact]
 		public void TestSplitLines()
 		{
-			const int    expectedLineCount = 4;
-			const string text              = "qwe\nasd\nzxc\n123 321";
+			const int    expectedLineCount = 5;
+			const string text              = "qwe\nasd\nzxc\n123 321\n";
 
 			var entries = _splitter.SplitByLines(text);
 
@@ -27,7 +27,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 					item1 => Assert.Equal("qwe\n", item1),
 					item1 => Assert.Equal("asd\n", item1),
 					item1 => Assert.Equal("zxc\n", item1),
-					item1 => Assert.Equal("123 321", item1));
+					item1 => Assert.Equal("123 321\n", item1),
+					item1 => Assert.Equal("\n", item1));
 		}
 
 //		[Fact]

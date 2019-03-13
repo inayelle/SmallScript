@@ -2,6 +2,8 @@ using System.IO;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
+using Xunit;
+using Xunit.Sdk;
 
 namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 {
@@ -22,6 +24,11 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			{
 				return parser.Parse(file);
 			}
+		}
+
+		protected static void Fail(string message = "")
+		{
+			throw new XunitException(message);
 		}
 	}
 }

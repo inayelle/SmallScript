@@ -1,0 +1,5 @@
+let kek = 10
+let var = 0
+stdin >> kek
+stdout << var
+let 50 = 0

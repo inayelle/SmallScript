@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
@@ -42,7 +43,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			using (var file = new FileStream(OutputFile, FileMode.Create))
 			using (var writer = new StreamWriter(file))
 			{
-				foreach (var pair in result.Pairs.Where(p => p.IsFaulty()))
+				foreach (var pair in result.Pairs.Where(x=>x.IsFaulty()).OrderBy(x => x.ToString(), StringComparer.Ordinal))
 				{
 					_testOutputHelper.WriteLine(pair.ToString());
 					writer.WriteLine(pair);
