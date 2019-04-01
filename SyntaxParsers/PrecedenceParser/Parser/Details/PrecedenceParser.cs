@@ -35,7 +35,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 
 		public event Action<string> OnSequenceReplacement;
 
-		public SyntaxParserResult Parse(LexicalParseResult result)
+		public SyntaxParseResult Parse(LexicalParseResult result)
 		{
 			Require.NotNull(result, nameof(result));
 
@@ -52,10 +52,10 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 			catch (PrecedenceParseException exception)
 			{
 				var error = new ParseError(exception.Message, exception.OccuredAt);
-				return new SyntaxParserResult(error);
+				return new SyntaxParseResult(error);
 			}
 
-			return SyntaxParserResult.Successful;
+			return SyntaxParseResult.Successful;
 		}
 
 		private IEnumerable<IToken> PrepareTokensAndPairs(PairCollection pairs, IEnumerable<IToken> tokens)

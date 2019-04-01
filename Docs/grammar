@@ -1,28 +1,31 @@
 <SYNTAX>		::= <IMPL_LIST_1>
-<EOL>			::= \r | \n | \r\n
+
 <IMPL_LIST> 	::= <IMPL> <EOL> <IMPL_LIST> | <IMPL> <EOL>
-<IMPL>			::= <ASSIGN> | <FOR> | <COND_IF> | <READ> | <WRITE>
+<IMPL>			::= <DECL> | <ASSIGN> | <FOR> | <COND_IF> | <READ> | <WRITE>
+<DECL>			::= decl @VAR = <T1>
+
 <ASSIGN>		::= let @VAR = <T1> | let @VAR ~ <BOOL> ? <T1> : <T1>
-<FOR>			::= for @VAR by <T1> to <T1> do <IMPL_LIST_1> rof
+
+<FOR>			::= for @VAR = <T1> by <T1> to <T1> do <IMPL_LIST_1> rof
+
 <REL>			::= != | == | < | > | <= | >=
 <BOOL>			::= <T1> <REL> <T1>
-<COND_IF>		::= if <BOOL> then do <IMPL_LIST_1> fi | if <BOOL> then do <IMPL_LIST_1> else do <IMPL_LIST_1> fi
+<COND_IF>		::= if <BOOL> then <IMPL_LIST_1> else <IMPL_LIST_1> fi
 
-<READ>			::= stdin <READ_LIST>
-<READ_LIST>		::= >> @VAR <READ_LIST> | >> @VAR
-<WRITE>			::= stdout <WRITE_LIST>
-<WRITE_LIST>	::= << <T1> <WRITE_LIST> | << <T1>
+<READ>			::= stdin >> @VAR
+<WRITE>			::= stdout << <T1>
 
-<T> ::= <T> + <E1> | <T> - <E1> | <E1> | - <E1>
+<T> ::= <T> + <E1> | <T> - <E1> | <E1>
 <E> ::= <E> * <F1> | <E> / <F1> | <F1>
 <F> ::= <F> ** <R> | <R>
 <R> ::= ( <T1> ) | <K>
 <K>	::= @VAR | @CONST
 
 <IMPL_LIST_1>	::= <IMPL_LIST>
-
-<EOL_1> ::= <EOL>
+<DECL_LIST_1>	::= <DECL_LIST>
 
 <T1> 	::= <T>
 <E1> 	::= <E>
 <F1> 	::= <F>
+
+<EOL>	::= \r | \n | \r\n

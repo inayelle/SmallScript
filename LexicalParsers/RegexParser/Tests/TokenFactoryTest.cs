@@ -3,8 +3,8 @@ using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.Shared.Base;
 using SmallScript.Shared.Details.Navigation;
-using SmallScript.Shared.Tests;
 using Xunit;
 
 namespace SmallScript.LexicalParsers.RegexParser.Tests

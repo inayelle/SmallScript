@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.Shared.Tests;
+using SmallScript.Shared.Base;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Extensions;
 using Xunit;

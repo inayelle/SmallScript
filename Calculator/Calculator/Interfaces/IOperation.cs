@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using SmallScript.LexicalParsers.Shared.Interfaces;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Interfaces
+namespace SmallScript.Calculator.Interfaces
 {
 	public interface IOperation
 	{

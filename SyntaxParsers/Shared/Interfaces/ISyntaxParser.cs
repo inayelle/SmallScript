@@ -5,6 +5,6 @@ namespace SmallScript.SyntaxParsers.Shared.Interfaces
 {
 	public interface ISyntaxParser
 	{
-		SyntaxParserResult Parse(LexicalParseResult result);
+		SyntaxParseResult Parse(LexicalParseResult result);
 	}
 }

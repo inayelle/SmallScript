@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>SmallScript.SyntaxParsers.PrecedenceParser.Calculator</AssemblyName>
-    <RootNamespace>SmallScript.SyntaxParsers.PrecedenceParser.Calculator</RootNamespace>
+    <AssemblyName>SmallScript.Calculator</AssemblyName>
+    <RootNamespace>SmallScript.Calculator</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

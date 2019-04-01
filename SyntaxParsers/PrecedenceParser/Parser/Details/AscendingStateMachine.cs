@@ -14,15 +14,16 @@ using SmallScript.SyntaxParsers.PrecedenceParser.Parser.Extensions;
 
 namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 {
-	public sealed class AscendingStateMachine
+	internal sealed class AscendingStateMachine
 	{
 		private static readonly BoundEntry LeftBoundEntry  = new BoundEntry("$left$");
 		private static readonly BoundEntry RightBoundEntry = new BoundEntry("$right$");
 
 		private readonly IGrammar       _grammar;
-		private readonly PairCollection _pairs;
 		private readonly IGrammarEntry  _syntax;
-		private          EntryManager   _entryManager;
+		private readonly PairCollection _pairs;
+
+		private EntryManager _entryManager;
 
 		public event Action<string> OnSequenceReplacement;
 
@@ -149,7 +150,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 		{
 			var debug = $"??? ::= {String.Join(' ', _entryManager.StackContent.Reverse())}";
 			OnSequenceReplacement?.Invoke(debug);
-			
+
 			var token = _entryManager.GetCurrentToken();
 			_entryManager?.Dispose();
 			throw new PrecedenceParseException($"{message} {token.Value}", token.Position);

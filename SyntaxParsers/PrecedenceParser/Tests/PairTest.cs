@@ -1,5 +1,5 @@
 using SmallScript.Grammars.Shared.Details;
-using SmallScript.Shared.Tests;
+using SmallScript.Shared.Base;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
 using Xunit;
 

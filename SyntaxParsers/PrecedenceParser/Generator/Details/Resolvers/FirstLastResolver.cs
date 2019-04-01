@@ -9,7 +9,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details.Resolvers
 	{
 		public void Visit(IRule rule)
 		{
-			var root = Require.OfType<DetailedNonTerminal>(rule.Root);
+			var root = Require.OfType<DetailedNonTerminal>(rule.Root, nameof(rule));
 
 			foreach (var alternative in rule.Alternatives)
 			{

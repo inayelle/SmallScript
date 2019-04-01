@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using System.IO;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details;
-using SmallScript.Shared.Tests;
+using SmallScript.LexicalParsers.Shared.Extensions;
+using SmallScript.LexicalParsers.Shared.Interfaces;
+using SmallScript.Shared.Base;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
 using SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details;
 using Xunit;
@@ -35,7 +38,7 @@ namespace SmallScript.Calculator.Tests
 			var syntaxResult = syntaxParser.Parse(tokenizerResult);
 			Assert.True(syntaxResult.Ok);
 
-			var calculator = new SyntaxParsers.PrecedenceParser.Calculator.Details.Calculator();
+			var calculator = new Calculator.Details.Calculator();
 
 			var result = calculator.Evaluate(tokenizerResult.Tokens);
 			Assert.Equal(expectedResult, result);
