@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>SmallScript.PolishWriteback.Generator</AssemblyName>
+    <RootNamespace>SmallScript.PolishWriteback.Generator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LexicalParsers\Shared\Shared.csproj" />
+  </ItemGroup>
+
+</Project>

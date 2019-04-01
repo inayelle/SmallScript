@@ -25,7 +25,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			var staticDir = Path.GetFullPath("../../../StaticFiles");
 
 			GrammarFile     = Path.Combine(staticDir, "grammar");
-			CorrectTestFile = Path.Combine(staticDir, "nested");
+			CorrectTestFile = Path.Combine(staticDir, "example");
 			InvalidTestFile = Path.Combine(staticDir, "invalid");
 
 			Grammar = GetCorrectGrammar();

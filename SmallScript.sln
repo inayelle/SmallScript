@@ -44,11 +44,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Calculator\Tests\Tests.csproj", "{4438F7C6-2B53-4A36-9672-308C0746E580}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WritebackGenerator", "WritebackGenerator", "{ED9F6B4F-E40A-49BD-8DB4-3CFA727D9271}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PolishWriteback", "PolishWriteback", "{ED9F6B4F-E40A-49BD-8DB4-3CFA727D9271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "WritebackGenerator\Generator\Generator.csproj", "{9F83C2F5-FD0E-4D74-AB62-F00A5D7D1E82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "PolishWriteback\Generator\Generator.csproj", "{9F83C2F5-FD0E-4D74-AB62-F00A5D7D1E82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "WritebackGenerator\Tests\Tests.csproj", "{B7540BD8-C5B2-4263-9F9F-19FCA84933F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "PolishWriteback\Tests\Tests.csproj", "{B7540BD8-C5B2-4263-9F9F-19FCA84933F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
