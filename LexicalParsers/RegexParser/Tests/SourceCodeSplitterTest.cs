@@ -1,6 +1,6 @@
 using System.Linq;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
-using SmallScript.Shared.Tests;
+using SmallScript.Shared.Base;
 using Xunit;
 
 namespace SmallScript.LexicalParsers.RegexParser.Tests

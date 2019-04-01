@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using SmallScript.Calculator.Details.Operations;
+using SmallScript.Calculator.Interfaces;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;
-using SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Details.Operations;
-using SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Interfaces;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Details
+namespace SmallScript.Calculator.Details
 {
 	public class Calculator
 	{

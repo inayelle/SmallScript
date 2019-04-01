@@ -30,5 +30,10 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 		{
 			return new ConstantToken(other.Id, other.Value, position, other.GrammarEntry);
 		}
+
+		public override string ToString()
+		{
+			return $"[{nameof(ConstantToken)}, {Id}] {Value} : {Position}";
+		}
 	}
 }

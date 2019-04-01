@@ -2,20 +2,20 @@ using SmallScript.Shared.Details.Errors;
 
 namespace SmallScript.SyntaxParsers.Shared.Details
 {
-	public class SyntaxParserResult
+	public class SyntaxParseResult
 	{
-		public static SyntaxParserResult Successful => new SyntaxParserResult();
+		public static SyntaxParseResult Successful => new SyntaxParseResult();
 
 		public bool       Ok    { get; }
 		public ParseError Error { get; }
 
-		public SyntaxParserResult()
+		public SyntaxParseResult()
 		{
 			Ok    = true;
 			Error = null;
 		}
 
-		public SyntaxParserResult(ParseError error)
+		public SyntaxParseResult(ParseError error)
 		{
 			Ok    = false;
 			Error = error;

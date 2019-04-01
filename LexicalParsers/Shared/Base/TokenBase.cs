@@ -13,7 +13,7 @@ namespace SmallScript.LexicalParsers.Shared.Base
 		{
 			Value        = Require.NotNull(value, nameof(value));
 			GrammarEntry = Require.NotNull(grammarEntry, nameof(grammarEntry));
-			Position     = Require.NotNull(position, nameof(position));
+			Position     = position;
 		}
 
 		public string        Value        { get; }
@@ -48,27 +48,7 @@ namespace SmallScript.LexicalParsers.Shared.Base
 
 		public override string ToString()
 		{
-			return $"{Value} : {Position}";
-		}
-
-		public static bool operator ==(TokenBase first, TokenBase last)
-		{
-			return first?.Equals(last) ?? false;
-		}
-
-		public static bool operator !=(TokenBase first, TokenBase last)
-		{
-			return first?.Equals(last) ?? false;
-		}
-
-		public static bool operator ==(TokenBase token, string value)
-		{
-			return token?.Value.InvariantEquals(value) ?? false;
-		}
-
-		public static bool operator !=(TokenBase token, string value)
-		{
-			return !(token == value);
+			return $"[{GetType().Name}] {Value} : {Position}";
 		}
 	}
 }

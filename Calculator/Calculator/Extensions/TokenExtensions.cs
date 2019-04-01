@@ -1,8 +1,7 @@
 using System;
-using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Extensions
+namespace SmallScript.Calculator.Extensions
 {
 	internal static class TokenExtensions
 	{

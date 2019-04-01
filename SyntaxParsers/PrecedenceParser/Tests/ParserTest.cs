@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details;
 using SmallScript.LexicalParsers.Shared.Details;
-using SmallScript.LexicalParsers.Shared.Details.Tokens;
-using SmallScript.LexicalParsers.Shared.Interfaces;
-using SmallScript.Shared.Details.Navigation;
-using SmallScript.Shared.Tests;
+using SmallScript.Shared.Base;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,9 +15,8 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 		private static readonly string   GrammarFile;
 		private static readonly string   CorrectTestFile;
 		private static readonly string   InvalidTestFile;
-		private static readonly IGrammar _grammar;
+		private static readonly IGrammar Grammar;
 
-		private readonly PostParseFormattingHandler      _formatter;
 		private readonly ITestOutputHelper               _testOutputHelper;
 		private readonly Parser.Details.PrecedenceParser _parser;
 
@@ -31,10 +25,10 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			var staticDir = Path.GetFullPath("../../../StaticFiles");
 
 			GrammarFile     = Path.Combine(staticDir, "grammar");
-			CorrectTestFile = Path.Combine(staticDir, "example");
+			CorrectTestFile = Path.Combine(staticDir, "nested");
 			InvalidTestFile = Path.Combine(staticDir, "invalid");
 
-			_grammar = GetCorrectGrammar();
+			Grammar = GetCorrectGrammar();
 		}
 
 		private static IGrammar GetCorrectGrammar()
@@ -51,8 +45,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 		{
 			_testOutputHelper = testOutputHelper;
 
-			_formatter = new PostParseFormattingHandler();
-			_parser    = new Parser.Details.PrecedenceParser(_grammar);
+			_parser    = new Parser.Details.PrecedenceParser(Grammar);
 		}
 
 		[Fact]
@@ -81,8 +74,8 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 
 		private LexicalParseResult GetTestLexicalParseResult(string filepath)
 		{
-			var parser = new RegexParser(_grammar);
-			parser.OnSuccessfulParse += _formatter.Handle;
+			var parser = new RegexParser(Grammar);
+			parser.OnSuccessfulParse += PostParseFormattingHandler.Handle;
 
 			using (var file = new FileStream(filepath, FileMode.Open))
 			{

@@ -2,8 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>SmallScript.PolishWritebackGenerator.Generator</AssemblyName>
-    <RootNamespace>SmallScript.PolishWritebackGenerator.Generator</RootNamespace>
+    <AssemblyName>SmallScript.WritebackGenerator.Generator</AssemblyName>
+    <RootNamespace>SmallScript.WritebackGenerator.Generator</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LexicalParsers\Shared\Shared.csproj" />
+  </ItemGroup>
 
 </Project>

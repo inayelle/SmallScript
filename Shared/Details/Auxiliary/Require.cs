@@ -8,7 +8,10 @@ namespace SmallScript.Shared.Details.Auxiliary
 		public static T NotNull<T>(T instance, [CallerMemberName] string name = null)
 				where T : class
 		{
-			if (instance == null) throw new ArgumentNullException(name);
+			if (instance == null)
+			{
+				throw new ArgumentNullException(name);
+			}
 
 			return instance;
 		}
@@ -21,8 +24,18 @@ namespace SmallScript.Shared.Details.Auxiliary
 				return t;
 			}
 
-			var actualType = instance?.GetType().Name ?? "null";
-			throw new ArgumentException($"{name} expected to be {typeof(TTarget).Name}, got {actualType}");
+			var actualType = instance?.GetType().FullName ?? "null";
+			throw new ArgumentException($"{name} expected to be {typeof(TTarget).FullName}, got {actualType}");
+		}
+
+		public static T Condition<T>(T instance, Func<T, bool> condition, [CallerMemberName] string name = null)
+		{
+			if (condition(instance))
+			{
+				return instance;
+			}
+			
+			throw new ArgumentException($"Argument {name} does not satisfy conditions");
 		}
 	}
 }

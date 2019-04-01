@@ -6,7 +6,7 @@ using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.Shared.Tests;
+using SmallScript.Shared.Base;
 using Xunit;
 
 namespace SmallScript.Grammars.BackusNaur.Tests

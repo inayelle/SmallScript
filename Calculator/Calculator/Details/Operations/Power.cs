@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Interfaces;
+using SmallScript.Calculator.Interfaces;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Details.Operations
+namespace SmallScript.Calculator.Details.Operations
 {
 	internal class Power : IOperation
 	{

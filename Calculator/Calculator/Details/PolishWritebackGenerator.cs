@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using SmallScript.Calculator.Extensions;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Interfaces;
-using SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Extensions;
 
-namespace SmallScript.SyntaxParsers.PrecedenceParser.Calculator.Details
+namespace SmallScript.Calculator.Details
 {
 	internal sealed class PolishWritebackGenerator
 	{
