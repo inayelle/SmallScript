@@ -1,5 +1,5 @@
 using System.Linq;
-using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
+using SmallScript.LexicalParsers.RegexParser.Parser.Internals;
 using SmallScript.Shared.Base;
 using Xunit;
 

@@ -1,0 +1,18 @@
+decl i 		= 0
+decl arg	= 0
+decl step	= 0
+decl until	= 0
+
+stdin >> arg
+stdin >> step
+stdin >> until
+
+for i = arg by step to until do
+	stdout << i
+rof
+
+if i == 11 then
+	stdout << 1337
+else
+	stdout << 1488
+fi

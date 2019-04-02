@@ -15,7 +15,7 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 		}
 
 		public int Id { get; }
-		
+
 		public override bool Equals(IToken other)
 		{
 			return other is VariableToken v && v.Id == Id;

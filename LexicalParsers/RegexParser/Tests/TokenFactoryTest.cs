@@ -1,7 +1,7 @@
 using System.IO;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
+using SmallScript.LexicalParsers.RegexParser.Parser.Internals;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.Shared.Base;
 using SmallScript.Shared.Details.Navigation;

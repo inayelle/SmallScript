@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SmallScript.Calculator.Details.Operations;
 using SmallScript.Calculator.Interfaces;
+using SmallScript.Calculator.Internals.Operations;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;

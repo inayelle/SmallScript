@@ -3,9 +3,9 @@ using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;
-using SmallScript.PolishWriteback.Generator.Details.Internal;
-using SmallScript.PolishWriteback.Generator.Details.Internal.Tokens;
 using SmallScript.PolishWriteback.Generator.Interfaces;
+using SmallScript.PolishWriteback.Generator.Internals;
+using SmallScript.PolishWriteback.Generator.Internals.Tokens;
 using SmallScript.Shared.Details.Auxiliary;
 
 namespace SmallScript.PolishWriteback.Generator.Details
@@ -53,6 +53,7 @@ namespace SmallScript.PolishWriteback.Generator.Details
 		{
 			var tokenArray = tokens.Where(t => !t.IsDelimiter(">>"))
 			                       .Where(t => !t.IsDelimiter("<<"))
+			                       .Where(t => !t.IsDelimiter("="))
 			                       .ToArray();
 
 			for (var i = 0; i < tokenArray.Length; ++i)

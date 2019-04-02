@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>SmallScript.PolishWriteback.ConsoleExecutor</AssemblyName>
+    <RootNamespace>SmallScript.PolishWriteback.ConsoleExecutor</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Grammars\BackusNaur\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\Grammars\Shared\Shared.csproj" />
+    <ProjectReference Include="..\..\LexicalParsers\RegexParser\Parser\Parser.csproj" />
+    <ProjectReference Include="..\..\SyntaxParsers\PrecedenceParser\Generator\Generator.csproj" />
+    <ProjectReference Include="..\..\SyntaxParsers\PrecedenceParser\Parser\Parser.csproj" />
+    <ProjectReference Include="..\Executor\Executor.csproj" />
+    <ProjectReference Include="..\Generator\Generator.csproj" />
+  </ItemGroup>
+
+</Project>

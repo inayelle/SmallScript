@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>SmallScript.PolishWriteback.Executor</AssemblyName>
+    <RootNamespace>SmallScript.PolishWriteback.Executor</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LexicalParsers\Shared\Shared.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Generator\Generator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions" />
+  </ItemGroup>
 
 </Project>

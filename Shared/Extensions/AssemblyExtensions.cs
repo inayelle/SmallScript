@@ -11,7 +11,8 @@ namespace SmallScript.Shared.Extensions
 		{
 			return assembly.GetTypes()
 			               .Where(t => t.Namespace != null)
-			               .Where(t => t.Namespace.Equals(@namespace, StringComparison.Ordinal)).ToArray();
+			               .Where(t => t.Namespace.Equals(@namespace, StringComparison.Ordinal))
+			               .ToArray();
 		}
 	}
 }
