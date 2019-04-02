@@ -1,6 +1,7 @@
 using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Navigation;
 
@@ -13,7 +14,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Tokens
 		public string Value => BoolValue.ToString();
 		public FilePosition Position => null;
 
-		public IGrammarEntry GrammarEntry { get; } = new Terminal("@BOOL");
+		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.BoolValue);
 
 		public BoolValueToken(bool value)
 		{

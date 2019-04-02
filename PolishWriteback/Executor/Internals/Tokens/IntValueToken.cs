@@ -2,6 +2,7 @@ using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Base;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Navigation;
 
@@ -14,7 +15,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Tokens
 		public string       Value    => IntValue.ToString();
 		public FilePosition Position => null;
 
-		public IGrammarEntry GrammarEntry { get; } = new Terminal("@VALUE");
+		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.IntValue);
 
 		public IntValueToken(int value)
 		{

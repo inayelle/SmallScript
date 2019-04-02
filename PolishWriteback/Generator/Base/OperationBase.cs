@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Generator.Details;
@@ -30,13 +31,13 @@ namespace SmallScript.PolishWriteback.Generator.Base
 				{
 					output.Add(token);
 				}
-				else if (token.IsDelimiter("("))
+				else if (token.IsDelimiter(Symbol.OpenParenthesis))
 				{
 					stack.Push(token);
 				}
-				else if (token.IsDelimiter(")"))
+				else if (token.IsDelimiter(Symbol.CloseParenthesis))
 				{
-					while (!stack.Peek().Value.InvariantEquals("("))
+					while (!stack.Peek().Value.InvariantEquals(Symbol.OpenParenthesis))
 					{
 						output.Add(stack.Pop());
 					}

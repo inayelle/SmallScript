@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Generator.Base;
 using SmallScript.PolishWriteback.Generator.Details;
@@ -14,7 +15,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 	{
 		private readonly ILabelIdentitySource _labelIdentitySource = LabelIdentitySource.Instance;
 
-		public override IGrammarEntry GrammarEntry { get; } = new Terminal("if");
+		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.OpenCondition);
 
 		public override IEnumerable<IToken> Consume(TokenIterator iterator, Stack<IToken> stack)
 		{
@@ -22,14 +23,14 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 
 			iterator.MoveNext(); //skip if
 
-			outputTokens.AddRange(ProcessDijkstraUntilEntry(iterator, new Terminal("then")));
+			outputTokens.AddRange(ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.Then)));
 			iterator.MoveNext(); //skip then
 
 			var jneLabelDecl = new LabelDeclarationToken(_labelIdentitySource.NextLabelId);
 			var jneToken     = new JneToken(jneLabelDecl);
 			outputTokens.Add(jneLabelDecl, jneToken);
 
-			outputTokens.AddRange(ProcessDefaultOperationUntilEntry(iterator, new Terminal("else")));
+			outputTokens.AddRange(ProcessDefaultOperationUntilEntry(iterator, new Terminal(Symbol.Else)));
 			iterator.MoveNext(); //skip else
 			
 			var jmpLabelDecl = new LabelDeclarationToken(_labelIdentitySource.NextLabelId);
@@ -37,7 +38,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 			
 			outputTokens.Add(jmpLabelDecl, jmpToken, jneLabelDecl.CreateLabel(-322));
 			
-			outputTokens.AddRange(ProcessDefaultOperationUntilEntry(iterator, new Terminal("fi")));
+			outputTokens.AddRange(ProcessDefaultOperationUntilEntry(iterator, new Terminal(Symbol.CloseCondition)));
 			iterator.MoveNext(); //skip fi
 			iterator.MoveNext(); //skip EOL
 			

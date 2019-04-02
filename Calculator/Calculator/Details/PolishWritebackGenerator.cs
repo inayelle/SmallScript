@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SmallScript.Calculator.Extensions;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 
 namespace SmallScript.Calculator.Details
@@ -21,20 +22,20 @@ namespace SmallScript.Calculator.Details
 
 				if (token is DelimiterToken)
 				{
-					if (token.Value.Equals("<EOL>"))
+					if (token.Value.Equals(Symbol.OperationDelimiter))
 					{
 						break;
 					}
 
-					if (token.Value.Equals("("))
+					if (token.Value.Equals(Symbol.OpenParenthesis))
 					{
 						stack.Push(token);
 						continue;
 					}
 
-					if (token.Value.Equals(")"))
+					if (token.Value.Equals(Symbol.CloseParenthesis))
 					{
-						while (!stack.Peek().Value.Equals("("))
+						while (!stack.Peek().Value.Equals(Symbol.OpenParenthesis))
 						{
 							result.Add(stack.Pop());
 						}

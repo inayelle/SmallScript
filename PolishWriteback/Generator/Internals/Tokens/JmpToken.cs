@@ -1,6 +1,7 @@
 using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
@@ -11,10 +12,10 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Tokens
 	{
 		public LabelDeclarationToken TargetLabel { get; }
 
-		public string       Value    => "@JMP";
+		public string       Value    => Symbol.Jump;
 		public FilePosition Position => null;
 
-		public IGrammarEntry GrammarEntry { get; } = new Terminal("@JMP");
+		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Jump);
 
 		public JmpToken(LabelDeclarationToken targetLabel)
 		{

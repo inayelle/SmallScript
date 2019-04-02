@@ -1,3 +1,4 @@
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 
 namespace SmallScript.PolishWriteback.Generator.Extensions
@@ -8,34 +9,34 @@ namespace SmallScript.PolishWriteback.Generator.Extensions
 		{
 			switch (token.Value)
 			{
-				case "<EOL>":
+				case Symbol.OperationDelimiter:
 					return 75;
-				case "decl":
-				case "let":
-				case "stdin":
-				case "stdout":
+				case Symbol.Declare:
+				case Symbol.Let:
+				case Symbol.StandartInput:
+				case Symbol.StandartOutput:
 					return 100;
-				case "=":
-				case ">>":
-				case "<<":
+				case Symbol.Assign:
+				case Symbol.StreamReading:
+				case Symbol.StreamWriting:
 					return 200;
-				case ">":
-				case ">=":
-				case "<":
-				case "<=":
-				case "==":
-				case "!=":
+				case Symbol.Greater:
+				case Symbol.GreaterEqual:
+				case Symbol.Less:
+				case Symbol.LessEqual:
+				case Symbol.Equal:
+				case Symbol.NotEqual:
 					return 275;
-				case "(":
-				case ")":
+				case Symbol.OpenParenthesis:
+				case Symbol.CloseParenthesis:
 					return 300;
-				case "+":
-				case "-":
+				case Symbol.Plus:
+				case Symbol.Minus:
 					return 400;
-				case "*":
-				case "/":
+				case Symbol.Multiplication:
+				case Symbol.Division:
 					return 401;
-				case "**":
+				case Symbol.Power:
 					return 402;
 				default:
 					return -1;

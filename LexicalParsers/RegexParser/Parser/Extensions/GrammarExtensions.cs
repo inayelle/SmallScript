@@ -1,5 +1,6 @@
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.Shared.Extensions;
 
 namespace SmallScript.LexicalParsers.RegexParser.Parser.Extensions
@@ -13,12 +14,12 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Extensions
 
 		public static IGrammarEntry GetVariableEntry(this IGrammar grammar)
 		{
-			return grammar.Entries.First(e => e.Value.InvariantEquals("@VAR"));
+			return grammar.Entries.First(e => e.Value.InvariantEquals(Symbol.Var));
 		}
 
 		public static IGrammarEntry GetConstantEntry(this IGrammar grammar)
 		{
-			return grammar.Entries.First(e => e.Value.InvariantEquals("@CONST"));
+			return grammar.Entries.First(e => e.Value.InvariantEquals(Symbol.Const));
 		}
 	}
 }

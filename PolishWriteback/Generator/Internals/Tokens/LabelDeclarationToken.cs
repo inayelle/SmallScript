@@ -1,6 +1,7 @@
 using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Navigation;
 
@@ -13,10 +14,10 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Tokens
 		public int Id               { get; }
 		public int TargetTokenOrder => _targetLabel?.TargetTokenOrder ?? -1;
 
-		public string       Value    => "@LBL_DECL";
+		public string       Value    => Symbol.LabelDeclaration;
 		public FilePosition Position => null;
 
-		public IGrammarEntry GrammarEntry { get; } = new Terminal("@LBL_DECL");
+		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.LabelDeclaration);
 
 		public LabelDeclarationToken(int id)
 		{

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Generator.Interfaces;
@@ -51,9 +52,9 @@ namespace SmallScript.PolishWriteback.Generator.Details
 
 		private IToken[] RemoveUnnessessaryTokens(IEnumerable<IToken> tokens)
 		{
-			var tokenArray = tokens.Where(t => !t.IsDelimiter(">>"))
-			                       .Where(t => !t.IsDelimiter("<<"))
-			                       .Where(t => !t.IsDelimiter("="))
+			var tokenArray = tokens.Where(t => !t.IsDelimiter(Symbol.StreamReading))
+			                       .Where(t => !t.IsDelimiter(Symbol.StreamWriting))
+			                       .Where(t => !t.IsDelimiter(Symbol.Assign))
 			                       .ToArray();
 
 			for (var i = 0; i < tokenArray.Length; ++i)

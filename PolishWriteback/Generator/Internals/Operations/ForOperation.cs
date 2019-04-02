@@ -3,6 +3,7 @@ using System.Linq;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Generator.Base;
 using SmallScript.PolishWriteback.Generator.Details;
@@ -16,7 +17,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 	{
 		private readonly ILabelIdentitySource _labelIdentitySource = LabelIdentitySource.Instance;
 
-		public override IGrammarEntry GrammarEntry { get; } = new Terminal("for");
+		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.OpenLoop);
 
 		public override IEnumerable<IToken> Consume(TokenIterator iterator, Stack<IToken> stack)
 		{
@@ -25,17 +26,17 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 			iterator.MoveNext();                 //skip for
 			var loopVariable = iterator.Current; //i
 
-			outputTokens.AddRange(ProcessDijkstraUntilEntry(iterator, new Terminal("by"))); // i 10 =
-			outputTokens.Add(new KeywordToken("let", null, new Terminal("let")));
+			outputTokens.AddRange(ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.By))); // i 10 =
+			outputTokens.Add(new KeywordToken(Symbol.Let, null, new Terminal(Symbol.Let)));
 			iterator.MoveNext(); //skip by
 
-			var stepTokens = ProcessDijkstraUntilEntry(iterator, new Terminal("to")).ToList(); // 2
+			var stepTokens = ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.To)).ToList(); // 2
 			iterator.MoveNext(); //skip to
 			
-			var boundTokens = ProcessDijkstraUntilEntry(iterator, new Terminal("do")); // 10
+			var boundTokens = ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.Do)); // 10
 			iterator.MoveNext(); //skip do
 
-			var bodyTokens = ProcessDefaultOperationUntilEntry(iterator, new Terminal("rof"));
+			var bodyTokens = ProcessDefaultOperationUntilEntry(iterator, new Terminal(Symbol.CloseLoop));
 			iterator.MoveNext(); //skip rof
 			iterator.MoveNext(); //skip EOL
 			
@@ -44,7 +45,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 			
 			outputTokens.Add(loopLabelDecl.CreateLabel(-322), loopVariable);
 			outputTokens.AddRange(boundTokens);
-			outputTokens.Add(new DelimiterToken("<=", null, new Terminal("<=")));
+			outputTokens.Add(new DelimiterToken(Symbol.LessEqual, null, new Terminal("<=")));
 			
 			outputTokens.Add(loopExitDecl, new JneToken(loopExitDecl));
 			
@@ -52,8 +53,8 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 			
 			outputTokens.Add(loopVariable, loopVariable);
 			outputTokens.AddRange(stepTokens);
-			outputTokens.Add(new DelimiterToken("+", null, new Terminal("+")));
-			outputTokens.Add(new DelimiterToken("let", null, new Terminal("let")));
+			outputTokens.Add(new DelimiterToken(Symbol.Plus, null, new Terminal(Symbol.Plus)));
+			outputTokens.Add(new DelimiterToken(Symbol.Let, null, new Terminal(Symbol.Let)));
 			
 			outputTokens.Add(loopLabelDecl, new JmpToken(loopLabelDecl), loopExitDecl.CreateLabel(-322));
 

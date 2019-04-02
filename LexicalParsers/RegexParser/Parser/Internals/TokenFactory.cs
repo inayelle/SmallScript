@@ -6,6 +6,7 @@ using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Extensions;
 using SmallScript.LexicalParsers.RegexParser.Parser.Interfaces;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Navigation;
@@ -114,8 +115,8 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Internals
 
 		private bool IsDelimiter(string value, FilePosition position, out DelimiterToken delimiterToken)
 		{
-			if (value.InvariantEquals("\n")) 
-				value = "<EOL>";
+			if (value.InvariantEquals("\n"))
+				value = Symbol.OperationDelimiter;
 
 			var grammarEntry = _grammar.GetEntryByValue(value);
 
