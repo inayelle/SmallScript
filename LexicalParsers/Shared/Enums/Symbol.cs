@@ -42,8 +42,5 @@ namespace SmallScript.LexicalParsers.Shared.Enums
 		public const string Power              = "**";
 		public const string StreamReading      = ">>";
 		public const string StreamWriting      = "<<";
-		public const string QuestionMark       = "?";
-		public const string Colon              = ":";
-		public const string Tilde              = "~";
 	}
 }
