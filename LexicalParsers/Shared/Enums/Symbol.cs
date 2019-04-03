@@ -12,7 +12,7 @@ namespace SmallScript.LexicalParsers.Shared.Enums
 		public const string LabelDeclaration   = "@LBL_DECL";
 		public const string JumpByNotEquality  = "@JNE";
 		public const string Jump               = "@JMP";
-		public const string Declare            = "decl";
+		public const string Declare            = "declare";
 		public const string Let                = "let";
 		public const string OpenLoop           = "for";
 		public const string To                 = "to";

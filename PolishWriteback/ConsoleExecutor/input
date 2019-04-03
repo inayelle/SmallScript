@@ -1,1 +1,3 @@
-stdout << "Hello word"
+declare topkek = 1488
+
+stdout << topkek + 322

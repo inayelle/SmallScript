@@ -1,7 +1,7 @@
-decl top = 1
-decl kek = 2
-decl var = 3
-decl i = 0
+declare top = 1
+declare kek = 2
+declare var = 3
+declare i = 0
 
 if top + 10 < kek - 5 then
 	for i = 0 by 1 to 10 do
