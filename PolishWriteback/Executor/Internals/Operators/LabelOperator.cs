@@ -9,7 +9,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Label);
 		
-		public void Execute(RuntimeData runtimeData)
+		public void Execute(RuntimeData runtime)
 		{
 			//так надо
 		}

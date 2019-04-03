@@ -2,6 +2,7 @@ using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.PolishWriteback.Executor.Base;
+using SmallScript.PolishWriteback.Executor.Extensions;
 using SmallScript.PolishWriteback.Generator.Internals.Tokens;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
@@ -10,15 +11,15 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.JumpByNotEquality);
 		
-		public override void Execute(RuntimeData runtimeData)
+		public override void Execute(RuntimeData runtime)
 		{
-			var label = runtimeData.Stack.Pop() as LabelDeclarationToken;
+			var label = runtime.Stack.Pop() as LabelDeclarationToken;
 
-			var boolValue = PopBoolValue(runtimeData);
+			var boolValue = runtime.PopBool();
 
 			if (!boolValue)
 			{
-				runtimeData.Iterator.MoveTo(label.TargetTokenOrder);
+				runtime.Iterator.MoveTo(label.TargetTokenOrder);
 			}
 		}
 	}
