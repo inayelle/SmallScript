@@ -1,5 +1,129 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="DesktopUI">
-    <TextBox Text="AUE" />
+        Title="SmallScript TopKek IDE"
+        Width="1280"
+        Height="720"
+        Foreground="#F3E8EE"
+        FontSize="14"
+        MaxHeight="1080"
+        MaxWidth="1920"
+        MinWidth="1280"
+        Topmost="True"
+        MinHeight="720">
+    <DockPanel>
+        <Border
+            DockPanel.Dock="Top"
+            BorderBrush="#729B79"
+            BorderThickness="0,0,0,1">
+            <Menu>
+                <MenuItem Header="File" Name="FileMenu" Padding="3">
+                    <MenuItem Name="OpenFileButton" Header="Open">
+                        <MenuItem.Icon>
+                            <TextBlock Text="O" HorizontalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Name="SaveFileButton" Header="Save">
+                        <MenuItem.Icon>
+                            <TextBlock Text="S" HorizontalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Name="CloseFileButton" Header="Exit">
+                        <MenuItem.Icon>
+                            <TextBlock Text="C" HorizontalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="ExitButton" Header="Exit">
+                        <MenuItem.Icon>
+                            <TextBlock Text="Q" HorizontalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Options" Padding="3">
+                    <MenuItem Header="Font size">
+                        <NumericUpDown Name="FontSizeNumeric" Minimum="1" Maximum="40" Value="14" />
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Compile" Name="CompileButton" Padding="3" />
+                <MenuItem Header="Run" Name="RunButton" Padding="3" />
+            </Menu>
+        </Border>
+        <Grid
+            ColumnDefinitions="*,1"
+            RowDefinitions="*,30">
+            <Border
+                BorderBrush="#729B79"
+                Grid.Row="0"
+                BorderThickness="0,0,0,1">
+                <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TabControl Name="TabControl">
+                        <TabItem Header="Editor">
+                            <Border
+                                BorderBrush="#729B79"
+                                Grid.Row="0"
+                                BorderThickness="0,1,0,0">
+                                <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <TextBox DockPanel.Dock="Left"
+                                             Name="CodeField"
+                                             Padding="10,10"
+                                             TextWrapping="Wrap"
+                                             FontSize="14"
+                                             BorderThickness="0"
+                                             FontFamily="Courier New"
+                                             AcceptsReturn="True"
+                                             AcceptsTab="True" />
+                                </Panel>
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Lexical analysis">
+                            <Border
+                                BorderBrush="#729B79"
+                                Grid.Row="0"
+                                BorderThickness="0,1,0,0">
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Syntax analysis">
+                            <Border
+                                BorderBrush="#729B79"
+                                Grid.Row="0"
+                                BorderThickness="0,1,0,0">
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Writeback">
+                            <Border
+                                BorderBrush="#729B79"
+                                Grid.Row="0"
+                                BorderThickness="0,1,0,0">
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Execution">
+                            <Border
+                                BorderBrush="#729B79"
+                                Grid.Row="0"
+                                BorderThickness="0,1,0,0">
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            </Border>
+                        </TabItem>
+                    </TabControl>
+                    <TabItem Header="Calculator">
+                        <Border
+                            BorderBrush="#729B79"
+                            Grid.Row="0"
+                            BorderThickness="0,1,0,0">
+                            <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        </Border>
+                    </TabItem>
+                </Panel>
+            </Border>
+            <Border Grid.Row="1" Padding="7,0,0,0">
+                <Panel VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Name="StatusField" Text="Welcome back! Again..." />
+                </Panel>
+            </Border>
+        </Grid>
+    </DockPanel>
 </Window>

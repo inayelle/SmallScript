@@ -17,6 +17,6 @@
         <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Configurations" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 </Project>
