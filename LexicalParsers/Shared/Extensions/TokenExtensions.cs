@@ -50,5 +50,10 @@ namespace SmallScript.LexicalParsers.Shared.Extensions
 		{
 			return token is VariableToken v && v.Value.InvariantEquals(expectedValue);
 		}
+
+		public static bool IsString(this IToken token)
+		{
+			return token is StringToken;
+		}
 	}
 }

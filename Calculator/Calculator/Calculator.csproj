@@ -11,4 +11,8 @@
     <ProjectReference Include="..\..\SyntaxParsers\PrecedenceParser\Parser\Parser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Internals" />
+  </ItemGroup>
+
 </Project>

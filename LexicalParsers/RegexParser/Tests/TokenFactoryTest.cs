@@ -1,8 +1,9 @@
 using System.IO;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.LexicalParsers.RegexParser.Parser.Details.Internal;
+using SmallScript.LexicalParsers.RegexParser.Parser.Internals;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.Shared.Base;
 using SmallScript.Shared.Details.Navigation;
 using Xunit;
@@ -45,7 +46,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Tests
 			var token = _factory.Create(value, new FilePosition(1, 1));
 
 			Assert.IsType<DelimiterToken>(token);
-			Assert.Equal("<EOL>", token.Value);
+			Assert.Equal(Symbol.OperationDelimiter, token.Value);
 		}
 	}
 }

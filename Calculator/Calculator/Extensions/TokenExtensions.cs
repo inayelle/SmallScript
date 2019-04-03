@@ -1,4 +1,5 @@
 using System;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 
 namespace SmallScript.Calculator.Extensions
@@ -9,16 +10,16 @@ namespace SmallScript.Calculator.Extensions
 		{
 			switch (token.Value)
 			{
-				case "(":
-				case ")":
+				case Symbol.OpenParenthesis:
+				case Symbol.CloseParenthesis:
 					return 0;
-				case "+":
-				case "-":
+				case Symbol.Plus:
+				case Symbol.Minus:
 					return 1;
-				case "*":
-				case "/":
+				case Symbol.Multiplication:
+				case Symbol.Division:
 					return 2;
-				case "**":
+				case Symbol.Power:
 					return 3;
 				default:
 					throw new NotImplementedException();

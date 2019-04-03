@@ -1,3 +1,4 @@
+using SmallScript.Shared.Details.Auxiliary;
 using SmallScript.Shared.Details.Errors;
 
 namespace SmallScript.SyntaxParsers.Shared.Details
@@ -18,7 +19,7 @@ namespace SmallScript.SyntaxParsers.Shared.Details
 		public SyntaxParseResult(ParseError error)
 		{
 			Ok    = false;
-			Error = error;
+			Error = Require.NotNull(error, nameof(error));
 		}
 	}
 }

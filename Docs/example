@@ -1,15 +1,20 @@
-decl kek = 1
-stdin >> kek
-stdout << var
+decl top = 1
+decl kek = 2
+decl var = 3
+decl i = 0
 
-for var by 1 to 2 do
+if top + 10 < kek - 5 then
+	for i = 0 by 1 to 10 do
+		stdout << i
+		let var = 322
+	rof
+else
+	for kek = 0 by 5 to 20 do
+		stdout << kek
+		let top = 228
+	rof
+fi
 
-	if 3 != 2 then
-		stdout << 1
-	else 
-		stdin >> kek
-	fi
-	
-rof
+let i = 99 - ( 22 + 11 ) ** 5 * 2
 
-let kek ~ 1 > 2 ? 3 : 1
+stdout << "topkek"

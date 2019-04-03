@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using SmallScript.Grammars.BackusNaur.Grammar.Details;
-using SmallScript.Grammars.BackusNaur.Parser.Details.Internals;
 using SmallScript.Grammars.BackusNaur.Parser.Exceptions;
 using SmallScript.Grammars.BackusNaur.Parser.Interfaces;
+using SmallScript.Grammars.BackusNaur.Parser.Internals;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Exceptions;
 using SmallScript.Grammars.Shared.Interfaces;
@@ -97,7 +97,8 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		private ISet<IAlternative> ParseAlternatives(string alternatives)
 		{
-			var parts = alternatives.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim());
+			var parts = alternatives.Split("|", StringSplitOptions.RemoveEmptyEntries)
+			                        .Select(a => a.Trim());
 
 			return parts.Select(ParseAlternative).ToHashSet();
 		}

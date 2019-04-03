@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using SmallScript.Calculator.Details.Operations;
 using SmallScript.Calculator.Interfaces;
+using SmallScript.Calculator.Internals.Operations;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Extensions;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 
@@ -18,11 +19,11 @@ namespace SmallScript.Calculator.Details
 			_generator = new PolishWritebackGenerator();
 			_operations = new Dictionary<string, IOperation>(5)
 			{
-					{ "+", new Addition() },
-					{ "-", new Substraction() },
-					{ "*", new Multiplication() },
-					{ "/", new Division() },
-					{ "**", new Power() }
+					{ Symbol.Plus, new Addition() },
+					{ Symbol.Minus, new Substraction() },
+					{ Symbol.Multiplication, new Multiplication() },
+					{ Symbol.Division, new Division() },
+					{ Symbol.Power, new Power() }
 			};
 		}
 
