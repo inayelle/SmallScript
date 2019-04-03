@@ -21,5 +21,10 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Extensions
 		{
 			return grammar.Entries.First(e => e.Value.InvariantEquals(Symbol.Const));
 		}
+		
+		public static IGrammarEntry GetStringEntry(this IGrammar grammar)
+		{
+			return grammar.Entries.First(e => e.Value.InvariantEquals(Symbol.String));
+		}
 	}
 }

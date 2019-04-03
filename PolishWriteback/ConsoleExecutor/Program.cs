@@ -134,12 +134,12 @@ namespace SmallScript.PolishWriteback.ConsoleExecutor
 
 		public void Write(int arg)
 		{
-			Console.WriteLine(arg);
+			Console.Write(arg);
 		}
 
 		public void Write(string arg)
 		{
-			Console.WriteLine(arg);
+			Console.Write(arg);
 		}
 	}
 }

@@ -13,7 +13,7 @@
 <COND_IF>		::= if <BOOL> then <IMPL_LIST_1> else <IMPL_LIST_1> fi
 
 <READ>			::= stdin >> @VAR
-<WRITE>			::= stdout << <T1>
+<WRITE>			::= stdout << <T1> | stdout << @STRING
 
 <T> ::= <T> + <E1> | <T> - <E1> | <E1>
 <E> ::= <E> * <F1> | <E> / <F1> | <F1>

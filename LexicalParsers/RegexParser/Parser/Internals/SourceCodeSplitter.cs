@@ -12,7 +12,7 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Internals
 	internal class SourceCodeSplitter : ISourceCodeSplitter
 	{
 		private const string TokenPattern = 
-				@"([A-z_][A-z0-9_]+|->|>>|<<|>|<|==|!=|>=|<=|[0-9]+|\-|\+|\*\*|\/|\*|\?|\:|\n|\(|\)|\[|\]|=)| |\t";
+				@"([A-z_][A-z0-9_]+|->|>>|<<|>|<|==|!=|>=|<=|[0-9]+|\-|\+|\*\*|\/|\*|\?|\:|\n|\(|\)|\[|\]|=|"".*"")| |\t";
 		
 		public ICollection<string> SplitByLines(string sourceCodeText)
 		{

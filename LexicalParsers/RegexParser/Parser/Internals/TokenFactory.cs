@@ -37,6 +37,9 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Internals
 			Require.NotNull(value, nameof(value));
 			Require.NotNull(position, nameof(position));
 
+			if (IsString(value, position, out var @string))
+				return @string;
+			
 			if (IsKeyword(value, position, out var keyword)) 
 				return keyword;
 			
@@ -52,6 +55,21 @@ namespace SmallScript.LexicalParsers.RegexParser.Parser.Internals
 			return new InvalidToken(value, position);
 		}
 
+		private bool IsString(string value, FilePosition position, out StringToken stringToken)
+		{
+			if (!Regex.IsMatch(value, "^\".*\"$"))
+			{
+				stringToken = null;
+				return false;
+			}
+		
+			var grammarEntry = _grammar.GetVariableEntry();
+			
+			stringToken = new StringToken(value.Replace("\"", ""), position, grammarEntry);
+
+			return true;
+		}
+		
 		private bool IsVariable(string value, FilePosition position, out VariableToken variableToken)
 		{
 			if (!Regex.IsMatch(value, @"^[A-z_]+$"))

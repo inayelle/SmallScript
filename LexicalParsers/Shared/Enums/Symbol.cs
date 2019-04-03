@@ -2,6 +2,7 @@ namespace SmallScript.LexicalParsers.Shared.Enums
 {
 	public static class Symbol
 	{
+		public const string String             = "@STRING";
 		public const string Var                = "@VAR";
 		public const string Const              = "@CONST";
 		public const string BoolValue          = "@BOOL";

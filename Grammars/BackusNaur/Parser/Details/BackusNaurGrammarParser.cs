@@ -97,7 +97,8 @@ namespace SmallScript.Grammars.BackusNaur.Parser.Details
 
 		private ISet<IAlternative> ParseAlternatives(string alternatives)
 		{
-			var parts = alternatives.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim());
+			var parts = alternatives.Split("|", StringSplitOptions.RemoveEmptyEntries)
+			                        .Select(a => a.Trim());
 
 			return parts.Select(ParseAlternative).ToHashSet();
 		}
