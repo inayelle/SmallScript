@@ -13,6 +13,35 @@ namespace SmallScript.PolishWriteback.Executor.Base
 
 		public abstract void Execute(RuntimeData runtimeData);
 
+		protected string PopValue(RuntimeData runtimeData)
+		{
+			var token = runtimeData.Stack.Pop();
+			
+			switch (token)
+			{
+				case IntValueToken valueToken:
+				{
+					return valueToken.IntValue.ToString();
+				}
+				case ConstantToken c:
+				{
+					return c.Value;
+				}
+				case VariableToken v:
+				{
+					return runtimeData.Variables.Get(v).ToString();
+				}
+				case StringToken s:
+				{
+					return s.Value;
+				}
+				default:
+				{
+					throw new InvalidOperationException();
+				}
+			}
+		}
+		
 		protected int PopIntValue(RuntimeData runtimeData)
 		{
 			var token = runtimeData.Stack.Pop();

@@ -56,8 +56,6 @@ namespace SmallScript.PolishWriteback.Executor.Details
 
 				iterator.MoveNext();
 			}
-
-			;
 		}
 	}
 }

@@ -6,13 +6,13 @@ using SmallScript.PolishWriteback.Executor.Interfaces;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 {
-	internal class StdoutOperator : IOperator
+	internal class StdoutOperator : OperatorBase
 	{
-		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartOutput);
+		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartOutput);
 
-		public void Execute(RuntimeData runtimeData)
+		public override void Execute(RuntimeData runtimeData)
 		{
-			var value = runtimeData.Stack.Pop().Value;
+			var value = PopValue(runtimeData);
 
 			runtimeData.InputOutput.Write(value);
 		}
