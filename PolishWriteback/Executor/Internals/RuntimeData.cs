@@ -8,16 +8,12 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 {
 	internal class RuntimeData
 	{
-		public TokenIterator Iterator { get; private set; }
 		public Stack<IToken> Stack    { get; private set; }
+		public TokenIterator Iterator { get; private set; }
 
 		public IInput        Input     { get; private set; }
 		public IOutput       Output    { get; private set; }
 		public VariablesData Variables { get; private set; }
-
-		private RuntimeData()
-		{
-		}
 
 		public static RuntimeBuilder Builder { get; } = new RuntimeBuilder();
 
@@ -47,7 +43,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 				_instance.Input = input;
 				return this;
 			}
-			
+
 			public RuntimeBuilder UseOutput(IOutput output)
 			{
 				_instance.Output = output;

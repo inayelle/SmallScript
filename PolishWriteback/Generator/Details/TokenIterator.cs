@@ -11,7 +11,8 @@ namespace SmallScript.PolishWriteback.Generator.Details
 
 		private int _position;
 
-		public IToken Current  => At(_position);
+		public virtual IToken Current => At(_position);
+
 		public IToken Next     => At(_position + 1);
 		public IToken Previous => At(_position - 1);
 

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Executor.Exceptions;
@@ -8,6 +8,9 @@ using SmallScript.PolishWriteback.Executor.Interfaces;
 using SmallScript.PolishWriteback.Executor.Internals;
 using SmallScript.PolishWriteback.Generator.Details;
 using SmallScript.Shared.Details.Auxiliary;
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: InternalsVisibleTo("SmallScript.PolishWriteback.Tests")]
 
 namespace SmallScript.PolishWriteback.Executor.Details
 {

@@ -5,18 +5,22 @@ using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.LexicalParsers.Shared.Interfaces;
 using SmallScript.PolishWriteback.Generator.Base;
 using SmallScript.PolishWriteback.Generator.Details;
+using SmallScript.PolishWriteback.Generator.Internals.Tokens;
 
 namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 {
-	internal class IfOperation : OperationBase
+	internal class FiOperation : OperationBase
 	{
-		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.OpenCondition);
-
+		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.CloseCondition);
+		
 		public override IEnumerable<IToken> Consume(TokenIterator iterator, Stack<IToken> stack)
 		{
-			iterator.MoveNext(); //skip if
+			iterator.MoveNext(); //skip fi
+			iterator.MoveNext(); //skip eol
+			
+			var labelDecl = stack.Pop() as LabelDeclarationToken;
 
-			return ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.Then));
+			return new[] { labelDecl.CreateLabel(-322) };
 		}
 	}
 }
