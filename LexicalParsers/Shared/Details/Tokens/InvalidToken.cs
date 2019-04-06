@@ -31,7 +31,7 @@ namespace SmallScript.LexicalParsers.Shared.Details.Tokens
 
 		public override string ToString()
 		{
-			return Value;
+			return $"[{nameof(InvalidToken)}] {Value} : {Position}";
 		}
 	}
 }

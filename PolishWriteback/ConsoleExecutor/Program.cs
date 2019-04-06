@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
@@ -59,7 +60,7 @@ namespace SmallScript.PolishWriteback.ConsoleExecutor
 				return;
 			}
 
-			var writebackTokens = generator.Generate(lexicalParseResult.Tokens);
+			var writebackTokens = generator.Generate(lexicalParseResult.Tokens).ToArray();
 
 			Console.WriteLine("Writeback tokens");
 			for (var i = 0; i < writebackTokens.Length; i++)
@@ -111,12 +112,9 @@ namespace SmallScript.PolishWriteback.ConsoleExecutor
 
 		private static WritebackExecutor GetExecutor()
 		{
-			return new WritebackExecutor(GetIo());
-		}
-
-		private static IInputOutput GetIo()
-		{
-			return new InputOutput();
+			var io = new ConsoleIO();
+			
+			return new WritebackExecutor(io, io);
 		}
 
 		private static Stream GetFileStream(string filename)
@@ -125,21 +123,21 @@ namespace SmallScript.PolishWriteback.ConsoleExecutor
 		}
 	}
 
-	internal class InputOutput : IInputOutput
+	internal sealed class ConsoleIO : IInput, IOutput
 	{
 		public int Read()
 		{
-			return Int32.Parse(Console.ReadLine()?.Trim());
+			return Int32.Parse(Console.ReadLine());
 		}
 
-		public void Write(int arg)
+		public void Write(string value)
 		{
-			Console.Write(arg);
+			Console.Write(value);
 		}
 
-		public void Write(string arg)
+		public void Clear()
 		{
-			Console.Write(arg);
+			Console.Clear();
 		}
 	}
 }

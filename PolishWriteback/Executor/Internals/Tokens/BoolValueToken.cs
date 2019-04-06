@@ -50,5 +50,10 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Tokens
 
 			return BoolValue == b.BoolValue;
 		}
+
+		public override string ToString()
+		{
+			return $"{nameof(BoolValueToken)} | {BoolValue}";
+		}
 	}
 }

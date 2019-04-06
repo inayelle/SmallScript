@@ -10,6 +10,11 @@
         MinWidth="1280"
         Topmost="True"
         MinHeight="720">
+    <Window.Styles>
+        <Style Selector="ListBoxItem:pointerover">
+            <Setter Property="Background" Value="#475B63" />
+        </Style>
+    </Window.Styles>
     <DockPanel>
         <Border
             DockPanel.Dock="Top"
@@ -29,7 +34,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Name="CloseFileButton" Header="Exit">
+                    <MenuItem Name="CloseFileButton" Header="Close">
                         <MenuItem.Icon>
                             <TextBlock Text="C" HorizontalAlignment="Center" />
                         </MenuItem.Icon>
@@ -42,11 +47,11 @@
                 </MenuItem>
                 <MenuItem Header="Options" Padding="3">
                     <MenuItem Header="Font size">
-                        <NumericUpDown Name="FontSizeNumeric" Minimum="1" Maximum="40" Value="14" />
+                        <NumericUpDown Name="FontSizeUpDown" Minimum="1" Maximum="40" Value="14" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Compile" Name="CompileButton" Padding="3" />
-                <MenuItem Header="Run" Name="RunButton" Padding="3" />
+                <MenuItem Header="Execute" Name="ExecuteButton" Padding="3" />
             </Menu>
         </Border>
         <Grid
@@ -58,7 +63,7 @@
                 BorderThickness="0,0,0,1">
                 <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TabControl Name="TabControl">
-                        <TabItem Header="Editor">
+                        <TabItem Header="Editor" Name="EditorTab">
                             <Border
                                 BorderBrush="#729B79"
                                 Grid.Row="0"
@@ -76,52 +81,53 @@
                                 </Panel>
                             </Border>
                         </TabItem>
-                        <TabItem Header="Lexical analysis">
+                        <TabItem Header="Tokens" Name="TokensTab">
                             <Border
                                 BorderBrush="#729B79"
                                 Grid.Row="0"
                                 BorderThickness="0,1,0,0">
-                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListBox Name="TokenList"
+                                             BorderThickness="0" />
+                                </Panel>
                             </Border>
                         </TabItem>
-                        <TabItem Header="Syntax analysis">
+                        <TabItem Header="Writeback" Name="WritebackTab">
                             <Border
                                 BorderBrush="#729B79"
                                 Grid.Row="0"
                                 BorderThickness="0,1,0,0">
-                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListBox Name="WritebackList" BorderThickness="0" />
+                                </Panel>
                             </Border>
                         </TabItem>
-                        <TabItem Header="Writeback">
+                        <TabItem Header="Execution" Name="ExecutionTab">
                             <Border
                                 BorderBrush="#729B79"
                                 Grid.Row="0"
                                 BorderThickness="0,1,0,0">
-                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListBox Name="OutputList" BorderThickness="0" />
+                                </Panel>
                             </Border>
                         </TabItem>
-                        <TabItem Header="Execution">
+                        <TabItem Header="History" Name="HistoryTab">
                             <Border
                                 BorderBrush="#729B79"
                                 Grid.Row="0"
                                 BorderThickness="0,1,0,0">
-                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListBox Name="HistoryList" BorderThickness="0" />
+                                </Panel>
                             </Border>
                         </TabItem>
                     </TabControl>
-                    <TabItem Header="Calculator">
-                        <Border
-                            BorderBrush="#729B79"
-                            Grid.Row="0"
-                            BorderThickness="0,1,0,0">
-                            <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                        </Border>
-                    </TabItem>
                 </Panel>
             </Border>
             <Border Grid.Row="1" Padding="7,0,0,0">
                 <Panel VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <TextBlock Name="StatusField" Text="Welcome back! Again..." />
+                    <TextBlock Name="StatusField" />
                 </Panel>
             </Border>
         </Grid>

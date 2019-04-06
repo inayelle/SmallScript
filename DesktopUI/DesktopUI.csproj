@@ -14,9 +14,16 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
+        <PackageReference Include="Avalonia.Skia.Desktop" Version="0.5.1" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\LexicalParsers\RegexParser\Parser\Parser.csproj" />
+      <ProjectReference Include="..\PolishWriteback\Executor\Executor.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
+      <ProjectReference Include="..\SyntaxParsers\PrecedenceParser\Parser\Parser.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Configuration" />
     </ItemGroup>
 </Project>

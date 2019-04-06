@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
+using SmallScript.DesktopUI.Views;
 
 namespace SmallScript.DesktopUI
 {

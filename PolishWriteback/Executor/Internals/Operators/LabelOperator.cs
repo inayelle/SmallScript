@@ -1,6 +1,8 @@
+using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Enums;
+using SmallScript.PolishWriteback.Executor.Details;
 using SmallScript.PolishWriteback.Executor.Interfaces;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
@@ -11,7 +13,8 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 		
 		public void Execute(RuntimeData runtime)
 		{
-			//так надо
 		}
+
+		public event EventHandler<HistoryPoint> OnExecution;
 	}
 }

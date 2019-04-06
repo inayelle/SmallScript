@@ -11,11 +11,11 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartOutput);
 
-		public override void Execute(RuntimeData runtime)
+		protected override void ExecuteImpl(RuntimeData runtime)
 		{
 			var value = runtime.Pop();
 
-			runtime.InputOutput.Write(value);
+			runtime.Output.Write(value);
 		}
 	}
 }

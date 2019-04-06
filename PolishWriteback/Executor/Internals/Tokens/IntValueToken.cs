@@ -46,5 +46,10 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Tokens
 
 			return v.IntValue == IntValue;
 		}
+		
+		public override string ToString()
+		{
+			return $"{nameof(IntValueToken)} | {IntValue}";
+		}
 	}
 }

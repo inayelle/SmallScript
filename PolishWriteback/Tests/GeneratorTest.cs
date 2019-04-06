@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SmallScript.Grammars.BackusNaur.Parser.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.RegexParser.Parser.Details;
@@ -30,7 +31,7 @@ namespace SmallScript.PolishWriteback.Tests
 		{
 			var generator = CreateGenerator();
 
-			var writebackTokens = generator.Generate(GetValidTokens());
+			var writebackTokens = generator.Generate(GetValidTokens()).ToArray();
 
 			for (var i = 0; i < writebackTokens.Length; ++i)
 			{

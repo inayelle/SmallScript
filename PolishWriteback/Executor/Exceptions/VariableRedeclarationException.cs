@@ -7,6 +7,7 @@ namespace SmallScript.PolishWriteback.Executor.Exceptions
 		public VariableToken Variable { get; }
 		
 		public VariableRedeclarationException(VariableToken token)
+				: base($"Duplicate declaration of variable \"{token.Value}\" at {token.Position}")
 		{
 			Variable = token;
 		}

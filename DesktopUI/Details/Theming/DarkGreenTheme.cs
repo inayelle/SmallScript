@@ -1,6 +1,6 @@
 namespace SmallScript.DesktopUI.Details.Theming
 {
-	internal sealed class DarkTheme : ThemeBase
+	internal sealed class DarkGreenTheme : ThemeBase
 	{
 		private const string Background  = "#2E2C2F";
 		private const string Controls    = "#475B63";
@@ -8,9 +8,9 @@ namespace SmallScript.DesktopUI.Details.Theming
 		private const string Border      = "#BACDB0";
 		private const string Foreground  = "#F3E8EE";
 
-		public static DarkTheme Instance { get; } = new DarkTheme();
+		public static DarkGreenTheme Instance { get; } = new DarkGreenTheme();
 		
-		private DarkTheme() : base(Background, Controls, ControlsMid, Foreground, Border)
+		private DarkGreenTheme() : base(Background, Controls, ControlsMid, Foreground, Border)
 		{
 		}
 	}
