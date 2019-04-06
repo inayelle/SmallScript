@@ -15,7 +15,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 			var first = runtime.PopInt();
 			var last  = runtime.PopInt();
 
-			var result = first - last;
+			var result = last - first;
 			
 			runtime.Push(result);
 		}

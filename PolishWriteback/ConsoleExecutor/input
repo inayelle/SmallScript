@@ -1,6 +1,1 @@
-declare topkek = 0
-
-for topkek = 0 by 1 to 10 do
-	stdout << "Pasha, nado чаще ulibatsya"
-	stdout << "\n"
-rof
+stdout << 322 + 1488 - (11+5)*3**12
