@@ -32,7 +32,7 @@ namespace SmallScript.PolishWriteback.Generator.Details
 			}
 		}
 
-		public IToken[] Generate(IEnumerable<IToken> tokens)
+		public IEnumerable<IToken> Generate(IEnumerable<IToken> tokens)
 		{
 			var outputTokens = new List<IToken>();
 			var iterator     = new TokenIterator(tokens);
@@ -50,7 +50,7 @@ namespace SmallScript.PolishWriteback.Generator.Details
 			return RemoveUnnessessaryTokens(outputTokens);
 		}
 
-		private IToken[] RemoveUnnessessaryTokens(IEnumerable<IToken> tokens)
+		private IEnumerable<IToken> RemoveUnnessessaryTokens(IEnumerable<IToken> tokens)
 		{
 			var tokenArray = tokens.Where(t => !t.IsDelimiter(Symbol.StreamReading))
 			                       .Where(t => !t.IsDelimiter(Symbol.StreamWriting))

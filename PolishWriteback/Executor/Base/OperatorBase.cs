@@ -1,9 +1,8 @@
 using System;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.LexicalParsers.Shared.Details.Tokens;
+using SmallScript.PolishWriteback.Executor.Details;
 using SmallScript.PolishWriteback.Executor.Interfaces;
 using SmallScript.PolishWriteback.Executor.Internals;
-using SmallScript.PolishWriteback.Executor.Internals.Tokens;
 
 namespace SmallScript.PolishWriteback.Executor.Base
 {
@@ -11,53 +10,16 @@ namespace SmallScript.PolishWriteback.Executor.Base
 	{
 		public abstract IGrammarEntry GrammarEntry { get; }
 
-		public abstract void Execute(RuntimeData runtimeData);
+		public event EventHandler<HistoryPoint> OnExecution;
 
-		protected int PopIntValue(RuntimeData runtimeData)
+		public void Execute(RuntimeData runtimeData)
 		{
-			var token = runtimeData.Stack.Pop();
+			ExecuteImpl(runtimeData);
 
-			switch (token)
-			{
-				case IntValueToken valueToken:
-				{
-					return valueToken.IntValue;
-				}
-				case ConstantToken c:
-				{
-					return Int32.Parse(c.Value);
-				}
-				case VariableToken v:
-				{
-					return runtimeData.Variables.Get(v);
-				}
-				default:
-				{
-					throw new InvalidOperationException();
-				}
-			}
+			var args = new HistoryPoint(GrammarEntry, runtimeData.Stack);
+			OnExecution?.Invoke(this, args);
 		}
 
-		protected bool PopBoolValue(RuntimeData runtimeData)
-		{
-			var token = runtimeData.Stack.Pop();
-
-			if (!(token is BoolValueToken b))
-			{
-				throw new InvalidOperationException();
-			}
-
-			return b.BoolValue;
-		}
-		
-		protected void PushValue(RuntimeData runtimeData, int value)
-		{
-			runtimeData.Stack.Push(new IntValueToken(value));
-		}
-		
-		protected void PushValue(RuntimeData runtimeData, bool value)
-		{
-			runtimeData.Stack.Push(new BoolValueToken(value));
-		}
+		protected abstract void ExecuteImpl(RuntimeData runtimeData);
 	}
 }

@@ -1,7 +1,9 @@
+using System;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Enums;
+using SmallScript.PolishWriteback.Executor.Details;
 using SmallScript.PolishWriteback.Executor.Interfaces;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
@@ -9,14 +11,16 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	internal class StdinOperator : IOperator
 	{
 		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartInput);
+
+		public event EventHandler<HistoryPoint> OnExecution;
 		
-		public void Execute(RuntimeData runtimeData)
+		public void Execute(RuntimeData runtime)
 		{
-			var token = runtimeData.Stack.Pop() as VariableToken;
+			var token = runtime.Stack.Pop() as VariableToken;
 
-			var value = runtimeData.InputOutput.Read();
+			var value = runtime.Input.Read();
 
-			runtimeData.Variables.Alter(token, value);
+			runtime.Variables.Alter(token, value);
 		}
 	}
 }

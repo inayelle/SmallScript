@@ -10,11 +10,11 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Jump);
 		
-		public override void Execute(RuntimeData runtimeData)
+		protected override void ExecuteImpl(RuntimeData runtime)
 		{
-			var label = runtimeData.Stack.Pop() as LabelDeclarationToken;
+			var label = runtime.Stack.Pop() as LabelDeclarationToken;
 			
-			runtimeData.Iterator.MoveTo(label.TargetTokenOrder);
+			runtime.Iterator.MoveTo(label.TargetTokenOrder);
 		}
 	}
 }

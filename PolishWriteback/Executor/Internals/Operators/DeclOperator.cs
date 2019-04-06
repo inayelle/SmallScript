@@ -1,9 +1,9 @@
+using System.Runtime.CompilerServices;
 using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
-using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.PolishWriteback.Executor.Base;
-using SmallScript.PolishWriteback.Executor.Interfaces;
+using SmallScript.PolishWriteback.Executor.Extensions;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 {
@@ -11,12 +11,12 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Declare);
 
-		public override void Execute(RuntimeData runtimeData)
+		protected override void ExecuteImpl(RuntimeData runtime)
 		{
-			var value = PopIntValue(runtimeData);
-			var token = runtimeData.Stack.Pop() as VariableToken;
+			var value = runtime.PopInt();
+			var token = runtime.PopVariable();
 
-			runtimeData.Variables.Create(token, value);
+			runtime.Variables.Create(token, value);
 		}
 	}
 }

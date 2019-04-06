@@ -2,19 +2,20 @@ using SmallScript.Grammars.Shared.Details;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.PolishWriteback.Executor.Base;
+using SmallScript.PolishWriteback.Executor.Extensions;
 using SmallScript.PolishWriteback.Executor.Interfaces;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 {
-	internal class StdoutOperator : IOperator
+	internal class StdoutOperator : OperatorBase
 	{
-		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartOutput);
+		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.StandartOutput);
 
-		public void Execute(RuntimeData runtimeData)
+		protected override void ExecuteImpl(RuntimeData runtime)
 		{
-			var value = runtimeData.Stack.Pop().Value;
+			var value = runtime.Pop();
 
-			runtimeData.InputOutput.Write(value);
+			runtime.Output.Write(value);
 		}
 	}
 }

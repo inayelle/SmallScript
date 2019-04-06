@@ -1,11 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Interfaces;
+using SmallScript.PolishWriteback.Executor.Exceptions;
 using SmallScript.PolishWriteback.Executor.Interfaces;
 using SmallScript.PolishWriteback.Executor.Internals;
 using SmallScript.PolishWriteback.Generator.Details;
 using SmallScript.Shared.Details.Auxiliary;
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: InternalsVisibleTo("SmallScript.PolishWriteback.Tests")]
 
 namespace SmallScript.PolishWriteback.Executor.Details
 {
@@ -13,39 +18,76 @@ namespace SmallScript.PolishWriteback.Executor.Details
 	{
 		private readonly IDictionary<IGrammarEntry, IOperator> _operators;
 
-		private IInputOutput _inputOutput;
+		private IInput  _input;
+		private IOutput _output;
 
-		public IInputOutput InputOutput
+		public IInput Input
 		{
-			get => _inputOutput;
-			set => _inputOutput = Require.NotNull(value);
+			get => _input;
+			set => _input = Require.NotNull(value, nameof(value));
 		}
 
-		public WritebackExecutor(IInputOutput inputOutput)
+		public IOutput Output
 		{
-			InputOutput = inputOutput;
+			get => _output;
+			set => _output = Require.NotNull(value, nameof(value));
+		}
+
+		private readonly IList<HistoryPoint> _history;
+
+		public WritebackExecutor(IInput input, IOutput output)
+		{
+			_history = new List<HistoryPoint>();
 
 			_operators = new OperatorProvider().Operators
-			                                   .ToDictionary(o => o.GrammarEntry);
+			                                   .ToDictionary(o =>
+			                                   {
+				                                   o.OnExecution += (sender, e) => _history.Add(e);
+				                                   return o.GrammarEntry;
+			                                   });
+
+			Input  = input;
+			Output = output;
 		}
 
-		public void Execute(IToken[] tokens)
+		public WritebackExecutionResult Execute(IEnumerable<IToken> tokens)
 		{
-			var iterator = new TokenIterator(tokens);
-			var stack    = new Stack<IToken>();
+			_history.Clear();
 
-			var runtimeData = RuntimeData.Builder
-			                             .UseIterator(iterator)
-			                             .UseIo(_inputOutput)
-			                             .UseStack(stack)
-			                             .UseVariableTable(new VariablesData())
-			                             .Build();
+			var runtime = BuildRuntime(tokens);
+
+			try
+			{
+				Execute(runtime);
+				return WritebackExecutionResult.FromHistory(_history);
+			}
+			catch (RuntimeException exception)
+			{
+				return WritebackExecutionResult.FromException(exception, _history);
+			}
+		}
+
+		private RuntimeData BuildRuntime(IEnumerable<IToken> tokens)
+		{
+			return RuntimeData.Builder
+			                  .UseIterator(new TokenIterator(tokens))
+			                  .UseInput(_input)
+			                  .UseOutput(_output)
+			                  .UseStack(new Stack<IToken>())
+			                  .UseVariableTable(new VariablesData())
+			                  .Build();
+		}
+
+		private void Execute(RuntimeData runtimeData)
+		{
+			var iterator = runtimeData.Iterator;
+			var stack    = runtimeData.Stack;
 
 			while (iterator.IsValid)
 			{
 				var token = iterator.Current;
 
-				if (_operators.TryGetValue(token.GrammarEntry, out var @operator))
+				if (IsOperator(token, out var @operator))
 				{
 					@operator.Execute(runtimeData);
 				}
@@ -56,8 +98,11 @@ namespace SmallScript.PolishWriteback.Executor.Details
 
 				iterator.MoveNext();
 			}
+		}
 
-			;
+		private bool IsOperator(IToken token, out IOperator @operator)
+		{
+			return _operators.TryGetValue(token.GrammarEntry, out @operator);
 		}
 	}
 }

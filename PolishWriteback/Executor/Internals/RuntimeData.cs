@@ -8,26 +8,12 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 {
 	internal class RuntimeData
 	{
-		public TokenIterator Iterator { get; private set; }
 		public Stack<IToken> Stack    { get; private set; }
+		public TokenIterator Iterator { get; private set; }
 
-		public IInputOutput  InputOutput { get; private set; }
-		public VariablesData Variables   { get; private set; }
-
-		private RuntimeData()
-		{
-		}
-
-		public RuntimeData(TokenIterator            iterator,
-		                   Stack<IToken>            stack,
-		                   IInputOutput             inputOutput,
-		                   VariablesData variables)
-		{
-			Iterator    = Require.NotNull(iterator, nameof(iterator));
-			Stack       = Require.NotNull(stack, nameof(stack));
-			InputOutput = Require.NotNull(inputOutput, nameof(inputOutput));
-			Variables   = Require.NotNull(variables, nameof(variables));
-		}
+		public IInput        Input     { get; private set; }
+		public IOutput       Output    { get; private set; }
+		public VariablesData Variables { get; private set; }
 
 		public static RuntimeBuilder Builder { get; } = new RuntimeBuilder();
 
@@ -52,10 +38,21 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 				return this;
 			}
 
-			public RuntimeBuilder UseIo(IInputOutput inputOutput)
+			public RuntimeBuilder UseInput(IInput input)
 			{
-				_instance.InputOutput = inputOutput;
+				_instance.Input = input;
 				return this;
+			}
+
+			public RuntimeBuilder UseOutput(IOutput output)
+			{
+				_instance.Output = output;
+				return this;
+			}
+
+			public RuntimeBuilder UseIO(IInput input, IOutput output)
+			{
+				return UseInput(input).UseOutput(output);
 			}
 
 			public RuntimeBuilder UseVariableTable(VariablesData variables)

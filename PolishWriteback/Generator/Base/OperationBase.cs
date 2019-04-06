@@ -27,6 +27,12 @@ namespace SmallScript.PolishWriteback.Generator.Base
 			{
 				var token = iterator.Current;
 
+				if (token.IsDelimiter(Symbol.OperationDelimiter))
+				{
+					iterator.MoveNext();
+					continue;
+				}
+				
 				if (token.GetPriority() < 0)
 				{
 					output.Add(token);

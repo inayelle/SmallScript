@@ -3,6 +3,7 @@ using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.LexicalParsers.Shared.Details.Tokens;
 using SmallScript.LexicalParsers.Shared.Enums;
 using SmallScript.PolishWriteback.Executor.Base;
+using SmallScript.PolishWriteback.Executor.Extensions;
 
 namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 {
@@ -10,14 +11,14 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Let);
 
-		public override void Execute(RuntimeData runtimeData)
+		protected override void ExecuteImpl(RuntimeData runtime)
 		{
-			var stack = runtimeData.Stack;
+			var stack = runtime.Stack;
 
-			var value = PopIntValue(runtimeData);
+			var value = runtime.PopInt();
 			var token = stack.Pop() as VariableToken;
 
-			runtimeData.Variables.Alter(token, value);
+			runtime.Variables.Alter(token, value);
 		}
 	}
 }

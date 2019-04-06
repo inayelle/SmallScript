@@ -12,5 +12,10 @@ namespace SmallScript.Shared.Details.Errors
 
 		public string       Message   { get; }
 		public FilePosition OccuredAt { get; }
+
+		public override string ToString()
+		{
+			return $"{Message} at {OccuredAt};";
+		}
 	}
 }
