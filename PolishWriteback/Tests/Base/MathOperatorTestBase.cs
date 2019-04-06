@@ -10,7 +10,6 @@ using SmallScript.PolishWriteback.Executor.Internals;
 using SmallScript.PolishWriteback.Executor.Internals.Tokens;
 using SmallScript.PolishWriteback.Generator.Details;
 using SmallScript.Shared.Details.Navigation;
-using TypeMock.ArrangeActAssert;
 using Xunit;
 
 [assembly: CollectionBehavior(MaxParallelThreads = 1, DisableTestParallelization = true)]
@@ -25,7 +24,7 @@ namespace SmallScript.PolishWriteback.Tests.Base
 
 		protected abstract int ExpectedResult { get; }
 
-		[Fact, Isolated]
+		[Fact]
 		public void TestOperator()
 		{
 			var instance = Activator.CreateInstance(OperatorType);
