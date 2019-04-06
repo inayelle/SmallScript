@@ -184,9 +184,10 @@ namespace SmallScript.DesktopUI.Views
 
 		private void InitializeEvents()
 		{
-			_openFileButton.Click  += OpenFileButtonOnClick;
+			_openFileButton.Click += OpenFileButtonOnClick;
+			_saveFileButton.Click += SaveFileButtonOnClick;
+
 			_closeFileButton.Click += OnCloseFileButtonClick;
-			_saveFileButton.Click  += SaveFileButtonOnClick;
 			_exitButton.Click      += OnExitFileButtonClick;
 
 			_compileButton.Click += OnCompileButtonClick;
@@ -223,11 +224,19 @@ namespace SmallScript.DesktopUI.Views
 
 		private async void SaveFileButtonOnClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new SaveFileDialog();
+			var dialog = new OpenFileDialog
+			{
+					AllowMultiple = false,
+					Title         = "Save source code file...",
+					Filters = new List<FileDialogFilter>
+					{
+							new FileDialogFilter { Extensions = new List<string> { "ss" } }
+					}
+			};
 
-			var file = await dialog.ShowAsync(this);
+			var files = await dialog.ShowAsync(this);
 
-			OnSaveFileButtonClick?.Invoke(this, file);
+			OnSaveFileButtonClick?.Invoke(this, files.First());
 		}
 
 		private void FontSizeUpDownOnValueChanged(object sender, NumericUpDownValueChangedEventArgs e)

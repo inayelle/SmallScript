@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
@@ -29,7 +30,7 @@ namespace SmallScript.DesktopUI.Details
 
 		public int Read()
 		{
-			throw new System.NotImplementedException();
+			return Int32.Parse(Console.ReadLine());
 		}
 
 		public void Write(string value)
