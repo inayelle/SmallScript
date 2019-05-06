@@ -28,7 +28,7 @@ namespace SmallScript.PolishWriteback.Tests.MathOperatorsTests
 			var iteratorMock = new Mock<TokenIterator>(ArraySegment<IToken>.Empty);
 			iteratorMock.Setup(i => i.Current).Returns(new IntValueToken(0));
 
-			var runtime = RuntimeData.Builder
+			var runtime = Runtime.Builder
 			                         .UseStack(GetStack(4, 0))
 			                         .UseIterator(iteratorMock.Object)
 			                         .Build();

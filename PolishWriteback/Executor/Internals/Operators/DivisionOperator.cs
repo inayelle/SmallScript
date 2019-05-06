@@ -12,7 +12,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Division);
 
-		protected override void ExecuteImpl(RuntimeData runtime)
+		protected override void ExecuteImpl(Runtime runtime)
 		{
 			var first = runtime.PopInt();
 			var last  = runtime.PopInt();

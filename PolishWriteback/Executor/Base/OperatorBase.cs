@@ -12,14 +12,14 @@ namespace SmallScript.PolishWriteback.Executor.Base
 
 		public event EventHandler<HistoryPoint> OnExecution;
 
-		public void Execute(RuntimeData runtimeData)
+		public void Execute(Runtime runtime)
 		{
-			ExecuteImpl(runtimeData);
+			ExecuteImpl(runtime);
 
-			var args = new HistoryPoint(GrammarEntry, runtimeData.Stack);
+			var args = new HistoryPoint(GrammarEntry, runtime.Stack);
 			OnExecution?.Invoke(this, args);
 		}
 
-		protected abstract void ExecuteImpl(RuntimeData runtimeData);
+		protected abstract void ExecuteImpl(Runtime runtime);
 	}
 }

@@ -33,13 +33,13 @@ namespace SmallScript.PolishWriteback.Tests.Base
 
 			Assert.NotNull(@operator);
 
-			var runtime = RuntimeData.Builder
+			var runtime = Runtime.Builder
 			                         .UseStack(Arguments)
 			                         .UseIterator(new TokenIterator(ArraySegment<IToken>.Empty))
 			                         .Build();
 			
 			Assert.NotNull(runtime);
-			Assert.IsType<RuntimeData>(runtime);
+			Assert.IsType<Runtime>(runtime);
 
 			@operator.Execute(runtime);
 

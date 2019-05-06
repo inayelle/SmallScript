@@ -11,7 +11,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.JumpByNotEquality);
 		
-		protected override void ExecuteImpl(RuntimeData runtime)
+		protected override void ExecuteImpl(Runtime runtime)
 		{
 			var label = runtime.Stack.Pop() as LabelDeclarationToken;
 

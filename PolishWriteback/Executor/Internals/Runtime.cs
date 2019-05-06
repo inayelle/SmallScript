@@ -6,7 +6,7 @@ using SmallScript.Shared.Details.Auxiliary;
 
 namespace SmallScript.PolishWriteback.Executor.Internals
 {
-	internal class RuntimeData
+	internal class Runtime
 	{
 		public Stack<IToken> Stack    { get; private set; }
 		public TokenIterator Iterator { get; private set; }
@@ -19,11 +19,11 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 
 		internal class RuntimeBuilder
 		{
-			private RuntimeData _instance;
+			private Runtime _instance;
 
 			public RuntimeBuilder()
 			{
-				_instance = new RuntimeData();
+				_instance = new Runtime();
 			}
 
 			public RuntimeBuilder UseIterator(TokenIterator iterator)
@@ -50,22 +50,17 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 				return this;
 			}
 
-			public RuntimeBuilder UseIO(IInput input, IOutput output)
-			{
-				return UseInput(input).UseOutput(output);
-			}
-
 			public RuntimeBuilder UseVariableTable(VariablesData variables)
 			{
 				_instance.Variables = variables;
 				return this;
 			}
 
-			public RuntimeData Build()
+			public Runtime Build()
 			{
 				var instance = _instance;
 
-				_instance = new RuntimeData();
+				_instance = new Runtime();
 
 				return instance;
 			}
