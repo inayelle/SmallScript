@@ -14,7 +14,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 
 		public event EventHandler<HistoryPoint> OnExecution;
 		
-		public void Execute(RuntimeData runtime)
+		public void Execute(Runtime runtime)
 		{
 			var token = runtime.Stack.Pop() as VariableToken;
 

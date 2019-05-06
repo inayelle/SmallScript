@@ -9,7 +9,7 @@ namespace SmallScript.PolishWriteback.Executor.Interfaces
 	{
 		IGrammarEntry GrammarEntry { get; }
 
-		void Execute(RuntimeData runtimeData);
+		void Execute(Runtime runtime);
 
 		event EventHandler<HistoryPoint> OnExecution;
 	}

@@ -10,12 +10,12 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.NotEqual);
 		
-		protected override void ExecuteImpl(RuntimeData runtime)
+		protected override void ExecuteImpl(Runtime runtime)
 		{
 			var last  = runtime.PopInt();
 			var first = runtime.PopInt();
 
-			bool result = first == last;
+			bool result = first != last;
 			
 			runtime.Push(result);
 		}

@@ -7,9 +7,9 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 {
 	internal static class RuntimeDataExtensions
 	{
-		public static string Pop(this RuntimeData runtimeData)
+		public static string Pop(this Runtime runtime)
 		{
-			var token = runtimeData.Stack.Pop();
+			var token = runtime.Stack.Pop();
 			
 			switch (token)
 			{
@@ -27,7 +27,7 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 				}
 				case VariableToken v:
 				{
-					return runtimeData.Variables.Get(v).ToString();
+					return runtime.Variables.Get(v).ToString();
 				}
 				case StringToken s:
 				{
@@ -40,9 +40,9 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 			}
 		}
 
-		public static int PopInt(this RuntimeData runtimeData)
+		public static int PopInt(this Runtime runtime)
 		{
-			var token = runtimeData.Stack.Pop();
+			var token = runtime.Stack.Pop();
 
 			switch (token)
 			{
@@ -56,7 +56,7 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 				}
 				case VariableToken v:
 				{
-					return runtimeData.Variables.Get(v);
+					return runtime.Variables.Get(v);
 				}
 				default:
 				{
@@ -65,9 +65,9 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 			}
 		}
 
-		public static bool PopBool(this RuntimeData runtimeData)
+		public static bool PopBool(this Runtime runtime)
 		{
-			var token = runtimeData.Stack.Pop();
+			var token = runtime.Stack.Pop();
 
 			if (!(token is BoolValueToken b))
 			{
@@ -77,9 +77,9 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 			return b.BoolValue;
 		}
 		
-		public static VariableToken PopVariable(this RuntimeData runtimeData)
+		public static VariableToken PopVariable(this Runtime runtime)
 		{
-			var token = runtimeData.Stack.Pop();
+			var token = runtime.Stack.Pop();
 
 			if (token is VariableToken v)
 			{
@@ -89,14 +89,14 @@ namespace SmallScript.PolishWriteback.Executor.Extensions
 			throw new InvalidOperationException();
 		}
 		
-		public static void Push(this RuntimeData runtimeData, int value)
+		public static void Push(this Runtime runtime, int value)
 		{
-			runtimeData.Stack.Push(new IntValueToken(value));
+			runtime.Stack.Push(new IntValueToken(value));
 		}
 		
-		public static void Push(this RuntimeData runtimeData, bool value)
+		public static void Push(this Runtime runtime, bool value)
 		{
-			runtimeData.Stack.Push(new BoolValueToken(value));
+			runtime.Stack.Push(new BoolValueToken(value));
 		}
 	}
 }

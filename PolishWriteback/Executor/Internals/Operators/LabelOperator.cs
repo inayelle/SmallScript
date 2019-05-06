@@ -11,7 +11,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals.Operators
 	{
 		public IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.Label);
 		
-		public void Execute(RuntimeData runtime)
+		public void Execute(Runtime runtime)
 		{
 		}
 

@@ -67,9 +67,9 @@ namespace SmallScript.PolishWriteback.Executor.Details
 			}
 		}
 
-		private RuntimeData BuildRuntime(IEnumerable<IToken> tokens)
+		private Runtime BuildRuntime(IEnumerable<IToken> tokens)
 		{
-			return RuntimeData.Builder
+			return Runtime.Builder
 			                  .UseIterator(new TokenIterator(tokens))
 			                  .UseInput(_input)
 			                  .UseOutput(_output)
@@ -78,10 +78,10 @@ namespace SmallScript.PolishWriteback.Executor.Details
 			                  .Build();
 		}
 
-		private void Execute(RuntimeData runtimeData)
+		private void Execute(Runtime runtime)
 		{
-			var iterator = runtimeData.Iterator;
-			var stack    = runtimeData.Stack;
+			var iterator = runtime.Iterator;
+			var stack    = runtime.Stack;
 
 			while (iterator.IsValid)
 			{
@@ -89,7 +89,7 @@ namespace SmallScript.PolishWriteback.Executor.Details
 
 				if (IsOperator(token, out var @operator))
 				{
-					@operator.Execute(runtimeData);
+					@operator.Execute(runtime);
 				}
 				else
 				{
