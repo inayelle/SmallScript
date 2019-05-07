@@ -16,8 +16,6 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details.Resolvers
 				root.SequenceRelations.AddFirst(alternative.Entries.First());
 				root.SequenceRelations.AddLast(alternative.Entries.Last());
 			}
-
-			;
 		}
 	}
 }

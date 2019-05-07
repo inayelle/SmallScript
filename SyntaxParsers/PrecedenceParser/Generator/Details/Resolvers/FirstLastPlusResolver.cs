@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using SmallScript.Grammars.Shared.Interfaces;
 using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Interfaces;

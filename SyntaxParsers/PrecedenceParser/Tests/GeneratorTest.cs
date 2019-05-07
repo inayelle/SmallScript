@@ -25,18 +25,18 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Tests
 			OutputFile  = Path.Combine(staticDir, "output");
 		}
 
-		private readonly Generator.Details.Generator _generator;
+		private readonly Generator.Details.PrecedenceGenerator _precedenceGenerator;
 
 		public GeneratorTest(ITestOutputHelper testOutputHelper)
 		{
 			_testOutputHelper = testOutputHelper;
-			_generator        = new Generator.Details.Generator();
+			_precedenceGenerator        = new Generator.Details.PrecedenceGenerator();
 		}
 
 		[Fact]
 		public void TestGenerate()
 		{
-			var result = _generator.Generate(GetCorrectGrammar());
+			var result = _precedenceGenerator.Generate(GetCorrectGrammar());
 
 			_testOutputHelper.WriteLine(result.Message);
 			

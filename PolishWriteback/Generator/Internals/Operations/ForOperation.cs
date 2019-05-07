@@ -19,6 +19,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 
 		public override IGrammarEntry GrammarEntry { get; } = new Terminal(Symbol.OpenLoop);
 
+		//for i = 10 by 2 to 100 do ... rof
 		public override IEnumerable<IToken> Consume(TokenIterator iterator, Stack<IToken> stack)
 		{
 			var outputTokens = new List<IToken>();
@@ -33,7 +34,7 @@ namespace SmallScript.PolishWriteback.Generator.Internals.Operations
 			var stepTokens = ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.To)).ToList(); // 2
 			iterator.MoveNext(); //skip to
 			
-			var boundTokens = ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.Do)); // 10
+			var boundTokens = ProcessDijkstraUntilEntry(iterator, new Terminal(Symbol.Do)); // 100
 			iterator.MoveNext(); //skip do
 
 			var bodyTokens = ProcessDefaultOperationUntilEntry(iterator, new Terminal(Symbol.CloseLoop));

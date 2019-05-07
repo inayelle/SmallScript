@@ -15,7 +15,7 @@ namespace SmallScript.PolishWriteback.Executor.Internals
 		public IOutput       Output    { get; private set; }
 		public VariablesData Variables { get; private set; }
 
-		public static RuntimeBuilder Builder { get; } = new RuntimeBuilder();
+		public static RuntimeBuilder Builder => new RuntimeBuilder();
 
 		internal class RuntimeBuilder
 		{

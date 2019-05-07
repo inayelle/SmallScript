@@ -17,7 +17,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 {
 	public class PrecedenceParser : ISyntaxParser
 	{
-		private readonly Generator.Details.Generator _generator;
+		private readonly Generator.Details.PrecedenceGenerator _precedenceGenerator;
 
 		private IGrammar _grammar;
 
@@ -30,7 +30,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 		public PrecedenceParser(IGrammar grammar)
 		{
 			Grammar    = grammar;
-			_generator = new Generator.Details.Generator();
+			_precedenceGenerator = new Generator.Details.PrecedenceGenerator();
 		}
 
 		public event Action<string> OnSequenceReplacement;
@@ -39,7 +39,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Parser.Details
 		{
 			Require.NotNull(result, nameof(result));
 
-			var pairs  = _generator.Generate(Grammar).Pairs;
+			var pairs  = _precedenceGenerator.Generate(Grammar).Pairs;
 			var tokens = PrepareTokensAndPairs(pairs, result.Tokens);
 
 			var stateMachine = new AscendingStateMachine(Grammar, pairs);

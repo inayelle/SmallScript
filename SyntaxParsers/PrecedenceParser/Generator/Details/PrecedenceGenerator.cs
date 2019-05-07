@@ -9,18 +9,18 @@ using SmallScript.SyntaxParsers.PrecedenceParser.Generator.Extensions;
 
 namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 {
-	public class Generator
+	public class PrecedenceGenerator
 	{
 		private readonly FirstLastResolver     _firstLastResolver;
 		private readonly FirstLastPlusResolver _firstLastPlusResolver;
 
-		public Generator()
+		public PrecedenceGenerator()
 		{
 			_firstLastResolver     = new FirstLastResolver();
 			_firstLastPlusResolver = new FirstLastPlusResolver();
 		}
 
-		public GeneratorResult Generate(IGrammar grammar)
+		public PrecedenceGeneratorResult Generate(IGrammar grammar)
 		{
 			Require.NotNull(grammar, nameof(grammar));
 
@@ -37,7 +37,7 @@ namespace SmallScript.SyntaxParsers.PrecedenceParser.Generator.Details
 
 			
 			
-			return new GeneratorResult(pairs, duplicateAlternatives);
+			return new PrecedenceGeneratorResult(pairs, duplicateAlternatives);
 		}
 
 		private void SetFirstLast(IGrammar grammar)
